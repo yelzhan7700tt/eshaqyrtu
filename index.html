@@ -2077,26 +2077,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const audio = document.getElementById('bg-audio');
     const musicBtn = document.getElementById('music-btn');
 
-    btn.addEventListener('click', () => {
+    // Элементтер жоқ болса шығып кету
+    if (!screen || !env || !btn) {
+      console.error('Конверт элементтері табылмады:', { screen: !!screen, env: !!env, btn: !!btn });
+      return;
+    }
+
+    function openEnvelope() {
       env.classList.add('open');
       btn.disabled = true;
 
       // Музыканы қосуға тырысу — бірақ қате шықса да анимация тоқтамасын
-      try {
-        audio.src = WEDDING.musicUrl;
-        const p = audio.play();
-        if (p && typeof p.then === 'function') {
-          p.then(() => {
-            musicBtn.classList.add('playing');
+      if (audio && musicBtn) {
+        try {
+          if (!audio.src && WEDDING.musicUrl) audio.src = WEDDING.musicUrl;
+          const p = audio.play();
+          if (p && typeof p.then === 'function') {
+            p.then(() => {
+              musicBtn.classList.add('playing');
+              musicBtn.style.display = 'flex';
+            }).catch(() => {
+              musicBtn.style.display = 'flex';
+            });
+          } else {
             musicBtn.style.display = 'flex';
-          }).catch(() => {
-            musicBtn.style.display = 'flex';
-          });
-        } else {
+          }
+        } catch (e) {
           musicBtn.style.display = 'flex';
         }
-      } catch (e) {
-        musicBtn.style.display = 'flex';
       }
 
       // Конвертті жабу анимациясы — музыкадан тәуелсіз
@@ -2106,7 +2114,9 @@ document.addEventListener('DOMContentLoaded', function() {
           screen.style.display = 'none';
         }, 900);
       }, 1100);
-    });
+    }
+
+    btn.addEventListener('click', openEnvelope);
   }
 
   // ───── Музыка ─────
@@ -2542,17 +2552,19 @@ document.addEventListener('DOMContentLoaded', function() {
   })();
 
   // ───── ІСКЕ ҚОСУ ─────
-  fillFields();
-  fillSchedule();
-  fillPalette();
-  fillParticles();
-  fillPetals();
-  startCountdown();
-  setupEnvelope();
-  setupMusic();
-  setupWishes();
-  setupRSVP();
-  setupICal();
+  // Әр функция қате шығарса да конверт жұмыс істеуі керек
+  try { fillFields(); } catch(e) { console.error('fillFields:', e); }
+  try { fillSchedule(); } catch(e) { console.error('fillSchedule:', e); }
+  try { fillPalette(); } catch(e) { console.error('fillPalette:', e); }
+  try { fillParticles(); } catch(e) { console.error('fillParticles:', e); }
+  try { fillPetals(); } catch(e) { console.error('fillPetals:', e); }
+  try { startCountdown(); } catch(e) { console.error('startCountdown:', e); }
+  // Конверт — ең маңыздысы, әрқашан жұмыс істеуі керек
+  try { setupEnvelope(); } catch(e) { console.error('setupEnvelope:', e); }
+  try { setupMusic(); } catch(e) { console.error('setupMusic:', e); }
+  try { setupWishes(); } catch(e) { console.error('setupWishes:', e); }
+  try { setupRSVP(); } catch(e) { console.error('setupRSVP:', e); }
+  try { setupICal(); } catch(e) { console.error('setupICal:', e); }
 
   // Алдымен reveal observer + scroll UI (контент көрінуі үшін)
   requestAnimationFrame(() => {
