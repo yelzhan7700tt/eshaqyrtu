@@ -15,6 +15,14 @@
 /dark/*
 !/dark/index.html
 
+!/stories/
+/stories/*
+!/stories/index.html
+
+!/template-1/
+/template-1/*
+!/template-1/index.html
+
 # Клиент жұмыстары
 !/client/
 /client/*
