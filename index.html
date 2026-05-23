@@ -1861,7 +1861,7 @@
         </div>
       </div>
 
-      <button class="env-btn" id="open-btn">Конвертті ашу</button>
+      <button class="env-btn" id="open-btn" onclick="var s=document.getElementById('envelope-screen');var e=document.getElementById('envelope');e.classList.add('open');this.disabled=true;var a=document.getElementById('bg-audio');var m=document.getElementById('music-btn');try{a.src=(window.WEDDING||{}).musicUrl||'';a.play().then(function(){m.style.display='flex'}).catch(function(){m.style.display='flex'});}catch(ex){m.style.display='flex';}setTimeout(function(){s.classList.add('opening');setTimeout(function(){s.style.display='none';},900);},1100);">Конвертті ашу</button>
     </div>
 
     <!-- ═══════════ МУЗЫКА БАТЫРМАСЫ ═══════════ -->
