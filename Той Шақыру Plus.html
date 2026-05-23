@@ -1,0 +1,2574 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>Той шақыру — Алихан & Аружан</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Tenor+Sans&display=swap" rel="stylesheet" />
+
+<style>
+  /* ════════════════════════════════════════
+     ҚАЗАҚША САЛТАНАТТЫ ШРИФТТЕР
+     ════════════════════════════════════════ */
+  @font-face {
+    font-family: 'Shelley';
+    src: url('fonts/AsylbekShelley.ttf') format('truetype');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Miama';
+    src: url('fonts/MiamaNueva.otf') format('opentype');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Margarita';
+    src: url('fonts/KZMargarita.ttf') format('truetype');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Klementina';
+    src: url('fonts/KZKlementina.otf') format('opentype');
+    font-display: swap;
+  }
+  /* ════════════════════════════════════════
+     ПАЛИТРА (CSS айнымалылар)
+     ════════════════════════════════════════ */
+  :root {
+    --bordo-dark: #3D0F1A;
+    --bordo: #6B2535;
+    --bordo-light: #8C3845;
+    --gold: #B8935A;
+    --gold-light: #E5C896;
+    --gold-dark: #8B6F2F;
+    --cream: #F5ECD9;
+    --cream-light: #FAF4E8;
+    --ink: #1A0F0A;
+    --muted: #6B5A48;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    color: var(--ink);
+    background: var(--cream-light);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  /* ════════════════════════════════════════
+     Десктоп → телефон рамкасы
+     Мобайл → толы экран
+     ════════════════════════════════════════ */
+  .stage {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background: radial-gradient(ellipse at top, #3D0F1A 0%, #1a0f0a 60%, #0a0405 100%);
+    padding: 24px 0;
+  }
+  .phone {
+    width: 390px;
+    height: 800px;
+    border-radius: 44px;
+    overflow: hidden;
+    background: var(--cream-light);
+    box-shadow:
+      0 50px 100px rgba(0,0,0,0.5),
+      0 0 0 11px #0a0405,
+      0 0 0 12px #3D0F1A,
+      0 0 0 13px rgba(184,147,90,0.3);
+    position: relative;
+  }
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 10px; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 30px; border-radius: 20px;
+    background: #000;
+    z-index: 1100;
+  }
+  .scroll {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    background: var(--cream-light);
+  }
+  .scroll::-webkit-scrollbar { width: 0; }
+
+  @media (max-width: 500px) {
+    .stage { padding: 0; background: var(--cream-light); }
+    .phone { width: 100vw; height: 100vh; border-radius: 0; box-shadow: none; }
+    .phone::before { display: none; }
+  }
+
+  /* ════════════════════════════════════════
+     Жалпы reveal анимациясы
+     ════════════════════════════════════════ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal.d1 { transition-delay: 0.15s; }
+  .reveal.d2 { transition-delay: 0.30s; }
+  .reveal.d3 { transition-delay: 0.45s; }
+  .reveal.d4 { transition-delay: 0.60s; }
+  .reveal.d5 { transition-delay: 0.75s; }
+
+  /* ════════════════════════════════════════
+     SECTION ТАҚЫРЫБЫ
+     ════════════════════════════════════════ */
+  .sec-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    color: var(--gold-dark);
+    margin-bottom: 4px;
+  }
+  .sec-title.on-dark { color: var(--gold-light); }
+  .sec-title span {
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .sec-title svg { display: block; }
+
+  .divider {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .divider-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+  }
+  .divider-line.on-dark { background: linear-gradient(90deg, transparent, var(--gold-light) 50%, transparent); }
+  .divider-diamond {
+    width: 8px; height: 8px;
+    border: 1px solid var(--gold);
+    transform: rotate(45deg);
+    position: relative;
+  }
+  .divider-diamond.on-dark { border-color: var(--gold-light); }
+  .divider-diamond::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+  .divider-diamond.on-dark::after { background: var(--gold-light); }
+
+  /* ════════════════════════════════════════
+     БӨЛІМДЕР
+     ════════════════════════════════════════ */
+  section {
+    padding: 64px 26px;
+    position: relative;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    background: linear-gradient(180deg, var(--cream-light) 0%, var(--cream) 100%);
+    padding-top: 60px;
+    min-height: 740px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 18% 28%, rgba(184,147,90,0.10) 0%, transparent 50%),
+      radial-gradient(circle at 82% 72%, rgba(107,37,53,0.07) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .eyebrow {
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .corner-flourish { display: inline-block; margin: 0 auto; }
+  .names {
+    margin-top: 32px;
+    margin-bottom: 8px;
+    font-family: "Shelley", "Miama", cursive;
+    font-size: 92px;
+    line-height: 0.95;
+    letter-spacing: -0.005em;
+    background: linear-gradient(135deg, #6B2535 0%, #8B6F2F 30%, #C9A961 50%, #8B6F2F 70%, #6B2535 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 6s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(107,37,53,0.18));
+  }
+  .ampersand {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 30px;
+    color: var(--gold);
+    margin: 4px 0;
+    letter-spacing: 0.05em;
+  }
+  .ceremony {
+    margin-top: 24px;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--bordo);
+    opacity: 0.85;
+  }
+  .date-row {
+    margin-top: 44px;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 18px;
+  }
+  .date-side {
+    align-self: center;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    line-height: 1.7;
+  }
+  .date-side.l { text-align: right; }
+  .date-big {
+    border-left: 1px solid var(--gold);
+    border-right: 1px solid var(--gold);
+    padding: 0 18px;
+    font-family: "Klementina", "Cormorant Garamond", serif;
+    font-size: 92px;
+    line-height: 1;
+    color: var(--bordo);
+    font-weight: 400;
+  }
+  .scroll-hint {
+    margin-top: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--gold-dark);
+    opacity: 0.65;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .scroll-hint span {
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+  }
+
+  /* INVITATION */
+  .invitation {
+    background: var(--cream);
+    text-align: center;
+  }
+  .invitation p.body {
+    margin: 26px auto 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink);
+    max-width: 320px;
+  }
+  .parents {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    align-items: stretch;
+  }
+  .parents-divider {
+    width: 1px;
+    background: var(--gold);
+    opacity: 0.4;
+  }
+  .parent {
+    flex: 1;
+    text-align: center;
+  }
+  .parent-label {
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.85;
+  }
+  .parent-names {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .poem {
+    margin-top: 32px;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--bordo);
+    opacity: 0.9;
+  }
+
+  /* COUNTDOWN */
+  .countdown {
+    background: linear-gradient(180deg, var(--bordo-dark) 0%, var(--bordo) 50%, var(--bordo-dark) 100%);
+    text-align: center;
+    overflow: hidden;
+  }
+  .countdown-grid {
+    margin: 36px auto 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    max-width: 340px;
+  }
+  .count-card {
+    background: linear-gradient(180deg, rgba(245,236,217,0.06) 0%, rgba(245,236,217,0.02) 100%);
+    border: 1px solid var(--gold);
+    padding: 18px 4px 14px;
+    position: relative;
+  }
+  .count-card .corner {
+    position: absolute;
+    width: 6px; height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+  .count-card .corner.tl { top: -3px; left: -3px; }
+  .count-card .corner.tr { top: -3px; right: -3px; }
+  .count-card .corner.bl { bottom: -3px; left: -3px; }
+  .count-card .corner.br { bottom: -3px; right: -3px; }
+  .count-num {
+    font-family: "Klementina", "Cormorant Garamond", serif;
+    font-size: 38px;
+    color: var(--cream-light);
+    line-height: 1;
+    font-feature-settings: "tnum";
+  }
+  .count-label {
+    margin-top: 8px;
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    color: var(--gold-light);
+    opacity: 0.85;
+  }
+
+  /* VENUE */
+  .venue {
+    background: var(--cream-light);
+    text-align: center;
+  }
+  .venue-name {
+    margin-top: 32px;
+    font-family: "Klementina", "Cormorant Garamond", serif;
+    font-size: 42px;
+    color: var(--bordo);
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+  }
+  .venue-type {
+    margin-top: 4px;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--gold-dark);
+  }
+  .venue-address {
+    margin: 22px auto 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 15px;
+    color: var(--ink);
+    opacity: 0.85;
+    line-height: 1.6;
+    max-width: 280px;
+  }
+  .map-frame {
+    margin-top: 30px;
+    position: relative;
+    border: 2px solid var(--gold);
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(61,15,26,0.18);
+  }
+  .map-frame iframe {
+    width: 100%;
+    height: 240px;
+    border: 0;
+    display: block;
+    filter: sepia(20%) saturate(0.85);
+  }
+  .map-frame::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid var(--gold-light);
+    pointer-events: none;
+  }
+  .btn {
+    margin-top: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 28px;
+    background: var(--bordo);
+    color: var(--cream-light);
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-decoration: none;
+    border: 1px solid var(--gold);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .btn:hover { background: var(--bordo-light); }
+  .btn:active { transform: scale(0.98); }
+  .btn.gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    color: var(--bordo-dark);
+    border-color: var(--gold-light);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  }
+
+  /* SCHEDULE */
+  .schedule {
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream-light) 100%);
+  }
+  .timeline {
+    margin: 44px auto 0;
+    max-width: 360px;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 70px;
+    top: 12px;
+    bottom: 12px;
+    width: 1px;
+    background: linear-gradient(180deg, transparent 0%, var(--gold) 10%, var(--gold) 90%, transparent 100%);
+  }
+  .tl-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .tl-time {
+    width: 70px;
+    text-align: right;
+    padding-right: 18px;
+    font-family: "Klementina", "Cormorant Garamond", serif;
+    font-size: 24px;
+    color: var(--bordo);
+    font-feature-settings: "tnum";
+  }
+  .tl-dot {
+    position: absolute;
+    left: 65px;
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: var(--cream-light);
+    border: 1.5px solid var(--gold);
+    box-shadow: 0 0 0 3px var(--cream-light);
+  }
+  .tl-title {
+    flex: 1;
+    padding-left: 18px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 17px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* DRESS CODE */
+  .dress {
+    background: var(--cream-light);
+    text-align: center;
+  }
+  .dress p {
+    margin: 24px auto 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink);
+    opacity: 0.85;
+    max-width: 300px;
+  }
+  .palette-label {
+    margin-top: 36px;
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+  }
+  .palette {
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  .swatch-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .swatch {
+    width: 44px;
+    height: 60px;
+    border-radius: 2px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.25);
+    border: 0.5px solid rgba(184,147,90,0.4);
+  }
+  .swatch-name {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    max-width: 54px;
+    line-height: 1.2;
+  }
+
+  /* PHOTOS */
+  .photos {
+    background: linear-gradient(180deg, var(--bordo) 0%, var(--bordo-dark) 100%);
+    text-align: center;
+    overflow: hidden;
+  }
+  .photos p {
+    margin: 28px auto 0;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--cream-light);
+    opacity: 0.9;
+    max-width: 300px;
+  }
+
+  /* WISHES */
+  .wishes {
+    background: var(--cream);
+    text-align: center;
+  }
+  .wishes p.sub {
+    margin: 24px auto 0;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink);
+    opacity: 0.8;
+    max-width: 280px;
+  }
+  .form {
+    margin: 30px auto 0;
+    max-width: 340px;
+  }
+  .form input,
+  .form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    background: rgba(255,255,255,0.4);
+    border: 1px solid var(--gold);
+    border-radius: 2px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 15px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .form textarea {
+    resize: none;
+    min-height: 80px;
+  }
+  .form input:focus,
+  .form textarea:focus {
+    border-color: var(--bordo);
+    background: rgba(255,255,255,0.6);
+  }
+  .form input::placeholder,
+  .form textarea::placeholder {
+    color: var(--gold-dark);
+    opacity: 0.55;
+    font-style: italic;
+  }
+  .form button {
+    width: 100%;
+    padding: 14px;
+    background: var(--bordo);
+    color: var(--cream-light);
+    border: 1px solid var(--gold);
+    border-radius: 2px;
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.3s;
+  }
+  .form button:hover { background: var(--bordo-light); }
+  .form button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .wish-list {
+    margin: 32px auto 0;
+    max-width: 340px;
+    text-align: left;
+  }
+  .wish {
+    margin-bottom: 14px;
+    padding: 16px 18px;
+    background: var(--cream-light);
+    border-left: 2px solid var(--gold);
+    animation: slideIn 0.6s ease both;
+  }
+  .wish-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink);
+    opacity: 0.85;
+  }
+  .wish-name {
+    margin-top: 8px;
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+  }
+
+  /* RSVP */
+  .rsvp {
+    background: var(--cream-light);
+    text-align: center;
+  }
+  .rsvp p.sub {
+    margin: 24px auto 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 16px;
+    color: var(--ink);
+    opacity: 0.85;
+    max-width: 280px;
+    line-height: 1.6;
+  }
+  .rsvp p.deadline {
+    margin-top: 8px;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--bordo);
+  }
+  .rsvp .form-label {
+    margin-top: 6px;
+    margin-bottom: 12px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 14px;
+    color: var(--bordo);
+    text-align: left;
+  }
+  .answer-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .answer-btn {
+    flex: 1;
+    padding: 12px 8px;
+    background: transparent;
+    color: var(--bordo);
+    border: 1px solid var(--gold);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .answer-btn.active {
+    background: var(--bordo);
+    color: var(--cream-light);
+  }
+
+  .rsvp-thanks {
+    background: linear-gradient(180deg, var(--bordo-dark) 0%, var(--bordo) 100%);
+    color: var(--cream-light);
+    text-align: center;
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+    display: none;
+  }
+  .rsvp-thanks.show { display: block; }
+  .thanks-title {
+    margin-top: 28px;
+    font-family: "Shelley", "Miama", cursive;
+    font-size: 84px;
+    color: var(--gold-light);
+    line-height: 1;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+  }
+  .thanks-text {
+    margin: 18px auto 0;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--cream-light);
+    opacity: 0.9;
+    max-width: 280px;
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: linear-gradient(180deg, var(--bordo) 0%, var(--bordo-dark) 100%);
+    text-align: center;
+    padding: 60px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .footer-names {
+    margin-top: 22px;
+    font-family: "Shelley", "Miama", cursive;
+    font-size: 64px;
+    color: var(--gold-light);
+    line-height: 1.05;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+  }
+  .footer-msg {
+    margin-top: 20px;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--cream-light);
+    opacity: 0.9;
+  }
+  .footer-date {
+    margin-top: 24px;
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--gold-light);
+    opacity: 0.7;
+  }
+
+  /* ════════════════════════════════════════
+     КОНВЕРТ — кіріспе экран
+     ════════════════════════════════════════ */
+  .envelope-screen {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, var(--bordo) 0%, var(--bordo-dark) 70%, #200508 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    overflow: hidden;
+    transition: opacity 0.7s, transform 0.9s;
+  }
+  .envelope-screen.opening { transform: scale(1.06); opacity: 0; pointer-events: none; }
+  .env-eyebrow {
+    position: absolute;
+    top: 70px; left: 0; right: 0;
+    text-align: center;
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.45em;
+    color: var(--gold-light);
+    transition: opacity 0.4s;
+  }
+  .envelope {
+    position: relative;
+    width: 280px;
+    height: 185px;
+    perspective: 900px;
+  }
+  .env-body {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #FAF4E8 0%, #E8DAB8 100%);
+    border-radius: 3px;
+    box-shadow: 0 16px 32px rgba(0,0,0,0.4);
+  }
+  .env-body::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 0.5px solid var(--gold);
+    opacity: 0.5;
+  }
+  .env-body::after {
+    /* артқы V іздері (флап жабылған кезде) */
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(135deg, transparent 49.7%, rgba(184,147,90,0.18) 49.9%, transparent 50.1%),
+      linear-gradient(45deg, transparent 49.7%, rgba(184,147,90,0.18) 49.9%, transparent 50.1%);
+    pointer-events: none;
+  }
+  .env-flap {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 100px;
+    background: linear-gradient(180deg, #F0E0BA 0%, #C9A961 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transform: rotateX(0deg);
+    transition: transform 1.3s cubic-bezier(.7,.1,.3,1);
+    z-index: 5;
+    border-bottom: 0.5px solid var(--gold-dark);
+  }
+  .envelope.open .env-flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+  }
+  .seal {
+    position: absolute;
+    top: 75px; left: 50%;
+    transform: translateX(-50%);
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #9A2A3A 0%, #6B2030 60%, #3D0F1A 100%);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Shelley", "Miama", cursive;
+    font-size: 34px;
+    color: var(--gold-light);
+    z-index: 10;
+    transition: opacity 0.3s, transform 0.4s;
+  }
+  .seal::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    border: 0.5px solid var(--gold-light);
+    opacity: 0.6;
+  }
+  .envelope.open .seal { opacity: 0; transform: translateX(-50%) scale(0.5); }
+  .env-names {
+    margin-top: 32px;
+    text-align: center;
+    transition: opacity 0.4s;
+  }
+  .env-names .n {
+    font-family: "Shelley", "Miama", cursive;
+    font-size: 54px;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+  }
+  .env-names .d {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: var(--gold-light);
+    opacity: 0.75;
+  }
+  .env-btn {
+    margin-top: 40px;
+    padding: 14px 36px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.3s, opacity 0.4s;
+  }
+  .env-btn:hover { background: rgba(184,147,90,0.18); }
+  .envelope-screen.opening .env-eyebrow,
+  .envelope-screen.opening .env-names,
+  .envelope-screen.opening .env-btn { opacity: 0; }
+
+  /* ════════════════════════════════════════
+     Алтын ұшқындар (декор)
+     ════════════════════════════════════════ */
+  .particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .particles span {
+    position: absolute;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--gold-light) 0%, transparent 70%);
+    box-shadow: 0 0 6px var(--gold);
+    opacity: 0.7;
+    animation: float 10s ease-in-out infinite;
+  }
+
+  /* ════════════════════════════════════════
+     МУЗЫКА БАТЫРМАСЫ
+     ════════════════════════════════════════ */
+  .music-btn {
+    position: absolute;
+    bottom: 22px; right: 18px;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    border: 1px solid var(--gold-light);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35), inset 0 1px 2px var(--gold-light);
+    color: var(--cream-light);
+    cursor: pointer;
+    z-index: 1500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .music-btn.playing { animation: spin 6s linear infinite; }
+
+  /* ════════════════════════════════════════
+     Жүректер жаңбыры (RSVP rахмет)
+     ════════════════════════════════════════ */
+  .hearts {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .hearts span {
+    position: absolute;
+    top: -20px;
+    color: var(--gold-light);
+    animation: fall linear infinite;
+  }
+
+  /* ════════════════════════════════════════
+     KEYFRAMES
+     ════════════════════════════════════════ */
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0); opacity: 0.4; }
+    50% { transform: translate(10px, -20px); opacity: 0.9; }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(440px) rotate(180deg); opacity: 0; }
+  }
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes drift {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+    8% { opacity: 0.7; }
+    100% { transform: translate(var(--dx, 30px), 680px) rotate(var(--rot, 360deg)); opacity: 0; }
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(-20px) rotate(0deg) translateX(0); opacity: 1; }
+    100% { transform: translateY(800px) rotate(var(--rot, 720deg)) translateX(var(--sway, 80px)); opacity: 0; }
+  }
+  @keyframes drawLine {
+    from { stroke-dashoffset: 200; }
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: 0.8; }
+  }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ════════════════════════════════════════
+     ЖАҢА: Скролл прогресс жолағы (жоғары шетте)
+     ════════════════════════════════════════ */
+  .progress-bar {
+    position: absolute;
+    top: 0; left: 0;
+    height: 2px;
+    width: 0;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+    background-size: 200% 100%;
+    z-index: 1400;
+    transition: width 0.1s ease-out;
+    animation: shimmer 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* ════════════════════════════════════════
+     ЖАҢА: Sticky монограмма (скроллда көрінеді)
+     ════════════════════════════════════════ */
+  .top-mono {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1300;
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+  }
+  .top-mono.show { opacity: 1; }
+  .top-mono-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
+    background: rgba(61, 15, 26, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--gold);
+    border-radius: 100px;
+    font-family: "Shelley", cursive;
+    font-size: 22px;
+    color: var(--gold-light);
+    line-height: 1;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+  }
+
+  /* ════════════════════════════════════════
+     ЖАҢА: Hero ішіндегі ұшып жүрген желбезек
+     ════════════════════════════════════════ */
+  .petals {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .petal {
+    position: absolute;
+    top: -30px;
+    width: 12px;
+    height: 12px;
+    animation: drift linear infinite;
+  }
+  .petal svg { width: 100%; height: 100%; display: block; }
+
+  /* ════════════════════════════════════════
+     ЖАҢА: Күнтізбеге сақтау батырмасы (hero астында)
+     ════════════════════════════════════════ */
+  .hero-actions {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .ical-btn {
+    padding: 11px 24px;
+    background: transparent;
+    color: var(--bordo);
+    border: 1px solid var(--gold);
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.3s, color 0.3s;
+    border-radius: 1px;
+  }
+  .ical-btn:hover {
+    background: var(--bordo);
+    color: var(--cream-light);
+  }
+  .ical-btn svg { display: block; }
+
+  /* ════════════════════════════════════════
+     ЖАҢА: Confetti — RSVP rахмет экранында
+     ════════════════════════════════════════ */
+  .confetti {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .confetti span {
+    position: absolute;
+    top: -20px;
+    width: 8px;
+    height: 14px;
+    border-radius: 2px;
+    animation: confettiFall linear forwards;
+  }
+
+  /* ════════════════════════════════════════
+     ЖАҢА: Сурет галерея placeholder
+     ════════════════════════════════════════ */
+  .gallery {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .photo-tile {
+    aspect-ratio: 3 / 4;
+    background:
+      linear-gradient(135deg, rgba(245,236,217,0.06) 0%, rgba(184,147,90,0.18) 50%, rgba(245,236,217,0.06) 100%);
+    background-size: 200% 200%;
+    animation: shimmer 4s ease-in-out infinite;
+    border: 1px solid rgba(184,147,90,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-light);
+    opacity: 0.7;
+    position: relative;
+  }
+  .photo-tile::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 0.5px solid rgba(229,200,150,0.3);
+  }
+  .photo-tile svg { opacity: 0.6; }
+
+  /* ════════════════════════════════════════
+     ЖАҢА: Параграф арасындағы тыныс — vertical sprig
+     ════════════════════════════════════════ */
+  .vertical-sprig {
+    margin: 0 auto;
+    display: block;
+  }
+  .vertical-sprig path {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+  }
+  .vertical-sprig.drawn path {
+    animation: drawLine 2s ease-out forwards;
+  }
+
+  /* ════════════════════════════════════════
+     ЖАҢА: Section progress dots (оң жақта)
+     ════════════════════════════════════════ */
+  .nav-dots {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    z-index: 800;
+    pointer-events: none;
+  }
+  .nav-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold-dark);
+    opacity: 0.35;
+    transition: all 0.3s;
+  }
+  .nav-dot.active {
+    opacity: 1;
+    background: var(--gold);
+    transform: scale(1.6);
+    box-shadow: 0 0 8px var(--gold);
+  }
+
+  /* ════════════════════════════════════════
+     ГАЛЕРЕЯ + LIGHTBOX
+     ════════════════════════════════════════ */
+  .gallery {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .photo-tile {
+    aspect-ratio: 3 / 4;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(245,236,217,0.08), rgba(184,147,90,0.2));
+    border: 1px solid rgba(184,147,90,0.35);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .photo-tile:active { transform: scale(0.97); }
+  .photo-tile img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .photo-tile .overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(61,15,26,0.35) 100%);
+    pointer-events: none;
+  }
+  .photo-tile.more-tile {
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(245,236,217,0.04);
+    border: 1px dashed rgba(184,147,90,0.4);
+  }
+  .more-tile-inner { text-align: center; color: var(--gold-light); }
+  .more-tile-inner .num { font-family: "Klementina", serif; font-size: 28px; display: block; line-height: 1; }
+  .more-tile-inner .label { font-family: "Tenor Sans", sans-serif; font-size: 8px; letter-spacing: 0.25em; margin-top: 4px; opacity: 0.7; }
+
+  .lightbox {
+    position: fixed; inset: 0;
+    background: rgba(10,5,5,0.96);
+    z-index: 5000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s;
+    touch-action: none;
+  }
+  .lightbox.open { opacity: 1; pointer-events: auto; }
+  .lb-close {
+    position: absolute; top: 16px; right: 16px;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white; font-size: 22px; cursor: pointer; z-index: 10;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .lb-counter {
+    position: absolute; top: 22px; left: 20px;
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--gold-light); z-index: 10;
+  }
+  .lb-track {
+    display: flex;
+    transition: transform 0.35s cubic-bezier(.2,.7,.2,1);
+    will-change: transform;
+    height: 85vh;
+    align-items: center;
+  }
+  .lb-slide {
+    flex: 0 0 100vw;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .lb-slide img {
+    max-width: 100%; max-height: 85vh;
+    object-fit: contain;
+    border: 1px solid rgba(184,147,90,0.3);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    border-radius: 2px;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  .lb-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: white; font-size: 20px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10;
+  }
+  .lb-nav.prev { left: 8px; }
+  .lb-nav.next { right: 8px; }
+  .lb-dots {
+    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 6px; z-index: 10;
+  }
+  .lb-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transition: all 0.3s;
+  }
+  .lb-dot.active { background: var(--gold); transform: scale(1.5); box-shadow: 0 0 8px var(--gold); }
+
+  /* ════════════════════════════════════════
+     INSTAGRAM STORIES
+     ════════════════════════════════════════ */
+  .stories-btn {
+    padding: 11px 24px;
+    background: linear-gradient(135deg, #833AB4, #C13584, #E1306C, #FD1D1D, #F77737, #FCAF45);
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease-in-out infinite;
+    color: white;
+    border: none;
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.3s;
+    border-radius: 1px;
+  }
+  .stories-btn:active { opacity: 0.85; }
+
+  .stories-overlay {
+    position: fixed; inset: 0;
+    background: #000;
+    z-index: 6000;
+    display: flex; flex-direction: column;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .stories-overlay.open { opacity: 1; pointer-events: auto; }
+  .stories-progress {
+    position: absolute; top: 12px; left: 8px; right: 8px;
+    display: flex; gap: 4px; z-index: 20; padding: 0 4px;
+  }
+  .stories-progress .bar-track {
+    flex: 1; height: 2.5px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px; overflow: hidden;
+  }
+  .stories-progress .bar-fill {
+    height: 100%; width: 0;
+    background: white; border-radius: 2px;
+  }
+  .stories-progress .bar-fill.done { width: 100%; }
+  .stories-header {
+    position: absolute; top: 28px; left: 16px; right: 16px;
+    display: flex; align-items: center; gap: 10px; z-index: 20;
+  }
+  .stories-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: linear-gradient(135deg, var(--bordo), var(--gold-dark));
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Shelley", cursive; font-size: 16px; color: var(--gold-light);
+  }
+  .stories-user { color: white; font-family: "Cormorant Garamond", serif; font-size: 14px; font-weight: 500; flex: 1; }
+  .stories-time { color: rgba(255,255,255,0.6); font-family: "Tenor Sans", sans-serif; font-size: 10px; letter-spacing: 0.15em; }
+  .stories-close {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.1); border: none;
+    color: white; font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .stories-content { flex: 1; position: relative; overflow: hidden; }
+  .story-slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 60px 30px 80px; text-align: center;
+    opacity: 0; transition: opacity 0.5s;
+    pointer-events: none;
+  }
+  .story-slide.current { opacity: 1; pointer-events: auto; }
+  .story-slide.g1 { background: radial-gradient(ellipse at center, #3D0F1A 0%, #1a0508 100%); }
+  .story-slide.g2 { background: radial-gradient(ellipse at 30% 20%, #6B2535 0%, #1a0f0a 100%); }
+  .story-slide.g3 { background: radial-gradient(ellipse at 70% 60%, #8B6F2F 0%, #1a0f0a 100%); }
+  .story-slide.g4 { background: radial-gradient(ellipse at center, #2a0808 0%, #000 100%); }
+  .story-slide.g5 { background: radial-gradient(ellipse at 40% 80%, var(--bordo) 0%, #0a0405 100%); }
+  .story-icon { font-size: 64px; margin-bottom: 24px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
+  .story-title {
+    font-family: "Shelley", "Miama", cursive;
+    font-size: 58px; color: var(--gold-light); line-height: 1.1;
+    margin-bottom: 16px;
+    filter: drop-shadow(0 3px 8px rgba(0,0,0,0.5));
+  }
+  .story-subtitle {
+    font-family: "Cormorant Garamond", serif; font-style: italic;
+    font-size: 20px; color: rgba(255,255,255,0.75); line-height: 1.6;
+    max-width: 300px;
+  }
+  .story-big-date {
+    font-family: "Klementina", serif;
+    font-size: 80px; color: var(--gold-light); line-height: 1;
+    margin-bottom: 12px;
+  }
+  .story-big-date small {
+    display: block;
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 11px; letter-spacing: 0.35em;
+    color: var(--gold-light); opacity: 0.7; margin-top: 6px;
+  }
+  .story-schedule-item { margin-bottom: 18px; }
+  .story-schedule-item .t { font-family: "Klementina", serif; font-size: 28px; color: var(--gold-light); }
+  .story-schedule-item .l { font-family: "Cormorant Garamond", serif; font-size: 16px; color: rgba(255,255,255,0.7); font-style: italic; margin-top: 2px; }
+  .story-venue { font-family: "Klementina", serif; font-size: 36px; color: var(--gold-light); margin-bottom: 8px; }
+  .story-venue-sub { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 15px; color: rgba(255,255,255,0.6); }
+  .story-tap-zone {
+    position: absolute; top: 0; bottom: 0; width: 40%; z-index: 10; cursor: pointer;
+  }
+  .story-tap-zone.left { left: 0; }
+  .story-tap-zone.right { right: 0; }
+  .story-hold-hint {
+    position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
+    color: rgba(255,255,255,0.4);
+    font-family: "Tenor Sans", sans-serif; font-size: 9px; letter-spacing: 0.3em;
+    animation: fadeInOut 5s ease forwards;
+    pointer-events: none; z-index: 5;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes fadeInOut {
+    0% { opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="phone">
+    <!-- Скролл прогресс жолағы -->
+    <div class="progress-bar" id="progress-bar"></div>
+
+    <!-- Sticky монограмма -->
+    <div class="top-mono" id="top-mono">
+      <div class="top-mono-pill"><span data-field="monogram">А&amp;А</span></div>
+    </div>
+
+    <!-- Section nav dots -->
+    <div class="nav-dots" id="nav-dots"></div>
+
+    <div class="scroll" id="scroll">
+
+      <!-- ═══════════ HERO ═══════════ -->
+      <section class="hero">
+        <div class="petals" id="petals"></div>
+        <div class="reveal">
+          <div class="eyebrow">ҮЙЛЕНУ ТОЙЫНА ШАҚЫРУ</div>
+        </div>
+
+        <div class="reveal d1">
+          <svg class="corner-flourish" width="56" height="56" viewBox="0 0 60 60">
+            <g fill="none" stroke="#B8935A" stroke-width="0.8" stroke-linecap="round">
+              <circle cx="30" cy="30" r="4" fill="#B8935A" opacity="0.3"/>
+              <path d="M30 8 Q22 22 8 30 Q22 38 30 52 Q38 38 52 30 Q38 22 30 8 Z" opacity="0.7"/>
+              <circle cx="30" cy="30" r="2" fill="#B8935A"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="reveal d2">
+          <div class="names" data-field="groom">Алихан</div>
+          <div class="ampersand">&amp;</div>
+          <div class="names" data-field="bride">Аружан</div>
+        </div>
+
+        <div class="reveal d3" style="margin-top:32px;">
+          <span class="divider">
+            <span class="divider-line"></span>
+            <span class="divider-diamond"></span>
+            <span class="divider-line"></span>
+          </span>
+        </div>
+
+        <div class="reveal d4">
+          <div class="ceremony" data-field="ceremonyTitle">Шаңырақ көтеру тойы</div>
+        </div>
+
+        <div class="reveal d5">
+          <div class="date-row">
+            <div class="date-side l">
+              <div data-field="weekday">Сенбі</div>
+              <div data-field="monthUpper">МАМЫР</div>
+            </div>
+            <div class="date-big" data-field="day">18</div>
+            <div class="date-side">
+              <div data-field="year">2026</div>
+              <div data-field="time">19:00</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="scroll-hint">
+          <span>ТӨМЕН СЫРҒЫТЫҢЫЗ</span>
+          <svg width="12" height="20" viewBox="0 0 12 20">
+            <path d="M6 2 L6 16 M2 12 L6 16 L10 12" stroke="#B8935A" stroke-width="1" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div class="reveal d5 hero-actions">
+          <button class="stories-btn" id="stories-btn-hero">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg>
+            STORIES ФОРМАТЫ
+          </button>
+          <button class="ical-btn" id="ical-btn">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+              <rect x="1.5" y="3" width="11" height="9.5" rx="1" stroke="currentColor" stroke-width="1"/>
+              <path d="M1.5 6 L12.5 6 M4.5 1.5 L4.5 4 M9.5 1.5 L9.5 4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+              <circle cx="7" cy="9" r="1.2" fill="currentColor"/>
+            </svg>
+            КҮНТІЗБЕГЕ ҚОСУ
+          </button>
+        </div>
+      </section>
+
+      <!-- ═══════════ INVITATION ═══════════ -->
+      <section class="invitation">
+        <div class="reveal sec-title">
+          <svg width="50" height="6"><line x1="0" y1="3" x2="42" y2="3" stroke="#8B6F2F" stroke-width="0.6"/><circle cx="46" cy="3" r="1.6" fill="#8B6F2F"/></svg>
+          <span>Қадірлі қонақтар</span>
+          <svg width="50" height="6"><line x1="8" y1="3" x2="50" y2="3" stroke="#8B6F2F" stroke-width="0.6"/><circle cx="4" cy="3" r="1.6" fill="#8B6F2F"/></svg>
+        </div>
+
+        <div class="reveal d1">
+          <p class="body" data-field="invitationLine">Сіздерді ұлымыз Алихан мен келініміз Аружанның шаңырақ көтеру тойына шақырамыз!</p>
+        </div>
+
+        <div class="reveal d2">
+          <div class="parents">
+            <div class="parent">
+              <div class="parent-label">Күйеу жігіт жағынан</div>
+              <div class="parent-names" data-field="groomParents">Серік пен Айгерім</div>
+            </div>
+            <div class="parents-divider"></div>
+            <div class="parent">
+              <div class="parent-label">Қалыңдық жағынан</div>
+              <div class="parent-names" data-field="brideParents">Болат пен Гүлжан</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal d3" style="margin-top:48px;">
+          <span class="divider">
+            <span class="divider-line"></span>
+            <span class="divider-diamond"></span>
+            <span class="divider-line"></span>
+          </span>
+        </div>
+
+        <div class="reveal d4">
+          <div class="poem" data-field="poem">
+            Бақыт қонып ақ отау түндігіне,<br>
+            Тағы да сезім нұры күлді, міне.<br>
+            Қол ұстасты жұбайлар салтанатпен,<br>
+            Жарастығы сай келіп бір-біріне.
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ COUNTDOWN ═══════════ -->
+      <section class="countdown">
+        <div class="particles" data-particles="14"></div>
+        <div class="reveal sec-title on-dark">
+          <svg width="50" height="6"><line x1="0" y1="3" x2="42" y2="3" stroke="#E5C896" stroke-width="0.6"/><circle cx="46" cy="3" r="1.6" fill="#E5C896"/></svg>
+          <span>Тойға дейін</span>
+          <svg width="50" height="6"><line x1="8" y1="3" x2="50" y2="3" stroke="#E5C896" stroke-width="0.6"/><circle cx="4" cy="3" r="1.6" fill="#E5C896"/></svg>
+        </div>
+
+        <div class="reveal d1">
+          <div class="countdown-grid">
+            <div class="count-card">
+              <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+              <div class="count-num" id="cd-days">00</div>
+              <div class="count-label">КҮН</div>
+            </div>
+            <div class="count-card">
+              <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+              <div class="count-num" id="cd-hours">00</div>
+              <div class="count-label">САҒАТ</div>
+            </div>
+            <div class="count-card">
+              <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+              <div class="count-num" id="cd-mins">00</div>
+              <div class="count-label">МИНУТ</div>
+            </div>
+            <div class="count-card">
+              <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+              <div class="count-num" id="cd-secs">00</div>
+              <div class="count-label">СЕКУНД</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ VENUE ═══════════ -->
+      <section class="venue">
+        <div class="reveal sec-title">
+          <svg width="50" height="6"><line x1="0" y1="3" x2="42" y2="3" stroke="#8B6F2F" stroke-width="0.6"/><circle cx="46" cy="3" r="1.6" fill="#8B6F2F"/></svg>
+          <span>Той өтетін орын</span>
+          <svg width="50" height="6"><line x1="8" y1="3" x2="50" y2="3" stroke="#8B6F2F" stroke-width="0.6"/><circle cx="4" cy="3" r="1.6" fill="#8B6F2F"/></svg>
+        </div>
+
+        <div class="reveal d1">
+          <div class="venue-name" data-field="venueName">Altyn Zhuldyz</div>
+          <div class="venue-type" data-field="venueType">мейрамханасы</div>
+        </div>
+
+        <div class="reveal d2" style="margin-top:24px;">
+          <span class="divider">
+            <span class="divider-line"></span>
+            <span class="divider-diamond"></span>
+            <span class="divider-line"></span>
+          </span>
+          <div class="venue-address" data-field="venueAddress">Темірлан тас жолы 70, Шымкент қаласы</div>
+        </div>
+
+        <div class="reveal d3">
+          <div class="map-frame">
+            <iframe
+              id="map-iframe"
+              loading="lazy"
+              src="about:blank"
+              data-src="https://yandex.kz/map-widget/v1/?ll=69.522533%2C42.359619&mode=search&oid=239949266678&ol=biz&z=16.83"
+              title="Карта">
+            </iframe>
+          </div>
+          <a class="btn" href="https://go.2gis.com/6wakc" target="_blank" rel="noopener noreferrer" data-field="mapUrl">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M7 1 C 4 1 2 3 2 6 C 2 9 7 13 7 13 C 7 13 12 9 12 6 C 12 3 10 1 7 1 Z M 7 7.5 A 1.5 1.5 0 1 1 7 4.5 A 1.5 1.5 0 1 1 7 7.5" stroke="#E5C896" stroke-width="1"/>
+            </svg>
+            ЖОЛДЫ КӨРСЕТУ
+          </a>
+        </div>
+      </section>
+
+      <!-- ═══════════ SCHEDULE ═══════════ -->
+      <section class="schedule">
+        <div class="reveal sec-title">
+          <svg width="50" height="6"><line x1="0" y1="3" x2="42" y2="3" stroke="#8B6F2F" stroke-width="0.6"/><circle cx="46" cy="3" r="1.6" fill="#8B6F2F"/></svg>
+          <span>Той бағдарламасы</span>
+          <svg width="50" height="6"><line x1="8" y1="3" x2="50" y2="3" stroke="#8B6F2F" stroke-width="0.6"/><circle cx="4" cy="3" r="1.6" fill="#8B6F2F"/></svg>
+        </div>
+
+        <div class="timeline" id="schedule-list">
+          <!-- JS толтырады -->
+        </div>
+      </section>
+
+      <!-- ═══════════ DRESS CODE ═══════════ -->
+      <section class="dress">
+        <div class="reveal sec-title">
+          <svg width="50" height="6"><line x1="0" y1="3" x2="42" y2="3" stroke="#8B6F2F" stroke-width="0.6"/><circle cx="46" cy="3" r="1.6" fill="#8B6F2F"/></svg>
+          <span>Дресс-код</span>
+          <svg width="50" height="6"><line x1="8" y1="3" x2="50" y2="3" stroke="#8B6F2F" stroke-width="0.6"/><circle cx="4" cy="3" r="1.6" fill="#8B6F2F"/></svg>
+        </div>
+
+        <div class="reveal d1">
+          <p data-field="dressNote">Біздің тойға сәйкес киім таңдап, мереке дресс-кодын ұстансаңыз, риза боламыз.</p>
+        </div>
+
+        <div class="reveal d2">
+          <div class="palette-label">Той палитрасы</div>
+        </div>
+
+        <div class="reveal d3">
+          <div class="palette" id="palette-row">
+            <!-- JS толтырады -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ PHOTOS ═══════════ -->
+      <section class="photos" id="photos-sec">
+        <div class="particles" data-particles="10"></div>
+
+        <div class="reveal sec-title on-dark">
+          <svg width="50" height="6"><line x1="0" y1="3" x2="42" y2="3" stroke="#E5C896" stroke-width="0.6"/><circle cx="46" cy="3" r="1.6" fill="#E5C896"/></svg>
+          <span>Біздің махаббат тарихы</span>
+          <svg width="50" height="6"><line x1="8" y1="3" x2="50" y2="3" stroke="#E5C896" stroke-width="0.6"/><circle cx="4" cy="3" r="1.6" fill="#E5C896"/></svg>
+        </div>
+
+        <div class="reveal d1">
+          <p>Құрметті қонақтар, той фотоларын төмендегі Telegram арнадан ала аласыздар</p>
+        </div>
+
+        <div class="reveal d2">
+          <div class="gallery" id="gallery-grid"><!-- JS толтырады --></div>
+        </div>
+
+        <div class="reveal d3">
+          <a class="btn gold" href="https://t.me/+DiQ6PRmLgVZkYTgy" target="_blank" rel="noopener noreferrer" data-field="telegramUrl" style="margin-top:28px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.6 8.2l-1.9 8.8c-.1.6-.5.8-1.1.5l-3-2.2-1.4 1.4c-.2.2-.3.3-.6.3l.2-3.1 5.7-5.2c.2-.2 0-.3-.4-.1l-7.1 4.5-3.1-1c-.7-.2-.7-.7.1-1l12.1-4.7c.5-.2 1 .1.8.8z"/>
+            </svg>
+            ТОЛЫҚ АЛЬБОМ
+          </a>
+        </div>
+      </section>
+
+      <!-- ═══════════ WISHES ═══════════ -->
+      <section class="wishes">
+        <div class="reveal sec-title">
+          <svg width="50" height="6"><line x1="0" y1="3" x2="42" y2="3" stroke="#8B6F2F" stroke-width="0.6"/><circle cx="46" cy="3" r="1.6" fill="#8B6F2F"/></svg>
+          <span>Тілек қалдыру</span>
+          <svg width="50" height="6"><line x1="8" y1="3" x2="50" y2="3" stroke="#8B6F2F" stroke-width="0.6"/><circle cx="4" cy="3" r="1.6" fill="#8B6F2F"/></svg>
+        </div>
+
+        <div class="reveal d1">
+          <p class="sub">Жас жұбайларға арнаған тілегіңізді қалдырыңыз</p>
+        </div>
+
+        <div class="reveal d2">
+          <form class="form" id="wish-form">
+            <input type="text" id="wish-name" placeholder="Атыңыз" required />
+            <textarea id="wish-text" placeholder="Тілегіңіз..." required></textarea>
+            <button type="submit" id="wish-btn">ТІЛЕК ҚАЛДЫРУ</button>
+          </form>
+        </div>
+
+        <div class="wish-list" id="wish-list">
+          <!-- JS толтырады -->
+        </div>
+      </section>
+
+      <!-- ═══════════ RSVP ═══════════ -->
+      <section class="rsvp" id="rsvp-form-sec">
+        <div class="reveal sec-title">
+          <svg width="50" height="6"><line x1="0" y1="3" x2="42" y2="3" stroke="#8B6F2F" stroke-width="0.6"/><circle cx="46" cy="3" r="1.6" fill="#8B6F2F"/></svg>
+          <span>Анкета</span>
+          <svg width="50" height="6"><line x1="8" y1="3" x2="50" y2="3" stroke="#8B6F2F" stroke-width="0.6"/><circle cx="4" cy="3" r="1.6" fill="#8B6F2F"/></svg>
+        </div>
+
+        <div class="reveal d1">
+          <p class="sub">Тойға қатысуыңызды растауыңызды сұраймыз</p>
+          <p class="deadline">Жауабыңызды <span data-field="rsvpDeadline">25.04.26</span> дейін беріңіз</p>
+        </div>
+
+        <div class="reveal d2">
+          <form class="form" id="rsvp-form">
+            <input type="text" id="rsvp-name" placeholder="Аты-жөніңіз" required />
+            <input type="text" id="rsvp-partner" placeholder="Жұбайыңыздың аты-жөні" />
+
+            <div class="form-label">Тойға келе аласыз ба?</div>
+            <div class="answer-row">
+              <button type="button" class="answer-btn" data-val="yes">Ия, әрине</button>
+              <button type="button" class="answer-btn" data-val="no">Өкінішке орай, жоқ</button>
+            </div>
+
+            <button type="submit" id="rsvp-btn" disabled>ЖАУАПТЫ ЖІБЕРУ</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ═══════════ RSVP THANKS ═══════════ -->
+      <section class="rsvp-thanks" id="rsvp-thanks">
+        <div class="hearts" id="hearts-rain"></div>
+        <div class="confetti" id="confetti-rain"></div>
+
+        <svg width="64" height="64" viewBox="0 0 60 60" style="margin: 0 auto; display: block;">
+          <g fill="none" stroke="#E5C896" stroke-width="0.8" stroke-linecap="round">
+            <circle cx="30" cy="30" r="4" fill="#E5C896" opacity="0.3"/>
+            <path d="M30 8 Q22 22 8 30 Q22 38 30 52 Q38 38 52 30 Q38 22 30 8 Z" opacity="0.7"/>
+            <circle cx="30" cy="30" r="2" fill="#E5C896"/>
+          </g>
+        </svg>
+
+        <div class="thanks-title">Рахмет!</div>
+        <p class="thanks-text">Жауабыңыз үшін рахмет! Сіздерді тойымызда күтеміз.</p>
+      </section>
+
+      <!-- ═══════════ FOOTER ═══════════ -->
+      <section class="footer">
+        <div class="particles" data-particles="10"></div>
+
+        <div class="reveal" style="text-align:center;">
+          <svg width="48" height="48" viewBox="0 0 60 60" style="margin: 0 auto; display: block;">
+            <g fill="none" stroke="#E5C896" stroke-width="0.8" stroke-linecap="round">
+              <circle cx="30" cy="30" r="4" fill="#E5C896" opacity="0.3"/>
+              <path d="M30 8 Q22 22 8 30 Q22 38 30 52 Q38 38 52 30 Q38 22 30 8 Z" opacity="0.7"/>
+              <circle cx="30" cy="30" r="2" fill="#E5C896"/>
+            </g>
+          </svg>
+
+          <div class="footer-names">
+            <span data-field="groom">Алихан</span> &amp; <span data-field="bride">Аружан</span>
+          </div>
+
+          <div style="margin-top: 14px; display: flex; justify-content: center;">
+            <span class="divider">
+              <span class="divider-line on-dark"></span>
+              <span class="divider-diamond on-dark"></span>
+              <span class="divider-line on-dark"></span>
+            </span>
+          </div>
+
+          <div class="footer-msg">Сіздерді үйлену тойымызда күтеміз!</div>
+          <div class="footer-date">
+            <span data-field="day">18</span> · <span data-field="monthUpper">МАМЫР</span> · <span data-field="year">2026</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ═══════════ КОНВЕРТ КІРІСПЕ ═══════════ -->
+    <div class="envelope-screen" id="envelope-screen">
+      <div class="particles" data-particles="20"></div>
+
+      <div class="env-eyebrow">СІЗГЕ АРНАЛҒАН ШАҚЫРУ</div>
+
+      <div class="envelope" id="envelope">
+        <div class="env-body"></div>
+        <div class="env-flap"></div>
+        <div class="seal">А&amp;А</div>
+      </div>
+
+      <div class="env-names">
+        <div class="n"><span data-field="groom">Алихан</span> &amp; <span data-field="bride">Аружан</span></div>
+        <div class="d">
+          <span data-field="day">18</span> ·
+          <span data-field="monthUpper">МАМЫР</span> ·
+          <span data-field="year">2026</span>
+        </div>
+      </div>
+
+      <button class="env-btn" id="open-btn">Конвертті ашу</button>
+    </div>
+
+    <!-- ═══════════ МУЗЫКА БАТЫРМАСЫ ═══════════ -->
+    <button class="music-btn" id="music-btn" aria-label="Музыка" style="display:none;">
+      <svg width="20" height="20" viewBox="0 0 16 16">
+        <path d="M6 2 L13 1 L13 10 Q13 13 10 13 Q7 13 7 11 Q7 9 10 9 L11 9 L11 4 L8 4.5 L8 12 Q8 14 5 14 Q2 14 2 12 Q2 10 5 10 L6 10 Z" fill="currentColor"/>
+      </svg>
+    </button>
+    <audio id="bg-audio" loop preload="none"></audio>
+
+  </div>
+</div>
+
+<!-- ═══════════ LIGHTBOX ═══════════ -->
+<div class="lightbox" id="lightbox">
+  <div class="lb-close" id="lb-close">&times;</div>
+  <div class="lb-counter" id="lb-counter">1 / 9</div>
+  <button class="lb-nav prev" id="lb-prev">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 4 L7 12 L15 20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </button>
+  <button class="lb-nav next" id="lb-next">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 4 L17 12 L9 20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </button>
+  <div class="lb-track" id="lb-track"></div>
+  <div class="lb-dots" id="lb-dots"></div>
+</div>
+
+<!-- ═══════════ INSTAGRAM STORIES ═══════════ -->
+<div class="stories-overlay" id="stories-overlay">
+  <div class="stories-progress" id="stories-progress"><!-- JS --></div>
+  <div class="stories-header">
+    <div class="stories-avatar">А&amp;А</div>
+    <div class="stories-user">Алихан &amp; Аружан</div>
+    <div class="stories-time" id="stories-date">18 Мамыр</div>
+    <button class="stories-close" id="stories-close">&times;</button>
+  </div>
+  <div class="stories-content" id="stories-content"><!-- JS --></div>
+  <div class="story-tap-zone left" id="tap-left"></div>
+  <div class="story-tap-zone right" id="tap-right"></div>
+  <div class="story-hold-hint">басып тұрыңыз — кідірту</div>
+</div>
+
+<!-- ════════════════════════════════════════
+     ШАҚЫРУ ДЕРЕКТЕРІ — тек осы блокты өзгерту жеткілікті
+     ════════════════════════════════════════ -->
+<script>
+const WEDDING = {
+  groom: "Алихан",
+  bride: "Аружан",
+  monogram: "А&А",
+
+  ceremonyTitle: "Шаңырақ көтеру тойы",
+  invitationLine: "Сіздерді ұлымыз Алихан мен келініміз Аружанның шаңырақ көтеру тойына шақырамыз!",
+
+  groomParents: "Серік пен Айгерім",
+  brideParents: "Болат пен Гүлжан",
+
+  // Той күні
+  day: 18,
+  monthName: "Мамыр",
+  monthUpper: "МАМЫР",
+  year: 2026,
+  weekday: "Сенбі",
+  time: "19:00",
+  iso: "2026-05-18T19:00:00+05:00", // countdown үшін
+
+  // Орын
+  venueName: "Altyn Zhuldyz",
+  venueType: "мейрамханасы",
+  venueAddress: "Темірлан тас жолы 70, Шымкент қаласы",
+  mapUrl: "https://go.2gis.com/6wakc",
+  yandexEmbed: "https://yandex.kz/map-widget/v1/?ll=69.522533%2C42.359619&mode=search&oid=239949266678&ol=biz&z=16.83",
+
+  // Бағдарлама
+  schedule: [
+    { time: "19:00", title: "Тойдың басталуы" },
+    { time: "20:00", title: "Беташар" },
+    { time: "21:00", title: "Құдаларды қарсы алу" },
+    { time: "21:30", title: "Торт" },
+    { time: "00:00", title: "Тойдың аяғы" }
+  ],
+
+  // Дресс-код
+  dressNote: "Біздің тойға сәйкес киім таңдап, мереке дресс-кодын ұстансаңыз, риза боламыз.",
+  paletteColors: ["#3D0F1A", "#6B2535", "#B8935A", "#E5C896", "#F5ECD9"],
+  paletteNames: ["Терең бордо", "Бордо", "Алтын", "Шай-алтын", "Крем"],
+
+  // Өлең
+  poem: [
+    "Бақыт қонып ақ отау түндігіне,",
+    "Тағы да сезім нұры күлді, міне.",
+    "Қол ұстасты жұбайлар салтанатпен,",
+    "Жарастығы сай келіп бір-біріне."
+  ],
+
+  // Сілтемелер
+  telegramUrl: "https://t.me/+DiQ6PRmLgVZkYTgy",
+  musicUrl: "https://dl.dropbox.com/scl/fi/a1qt2i2bh5s0vsgrxulus/Kazybek_Kurajjysh_-_Makhabbat_degen_75733807.mp3?rlkey=q2ib4m5canhif2i7aagcyks6b&dl=1",
+
+  rsvpDeadline: "25.04.26",
+
+  // Галерея фотолары (өз файлдарыңызбен ауыстырыңыз)
+  photos: [
+    { src: "Шаблон  1/1582658843_8-p-foto-zhenikhov-i-nevest-so-spini-17.jpg", alt: "Жұбайлар" },
+    { src: "Шаблон  1/1644360091_43-o-tendencii-com-p-zhenikhi-i-nevesti-s-buketami-foto-43.jpg", alt: "Қалыңдық" },
+    { src: "Шаблон  1/Алихан Аружан.png", alt: "Алихан & Аружан" },
+    { src: "Шаблон  1/Алихан.png", alt: "Алихан" },
+    { src: "Шаблон  1/Аружан.png", alt: "Аружан" },
+    { src: "Шаблон  1/A i A.png", alt: "Монограмма" },
+    { src: "Шаблон  1/Наурыз222.png", alt: "Наурыз" },
+    { src: "Шаблон  1/Тойға шақыру Header.png", alt: "Шақыру" },
+    { src: "Шаблон  1/жүрек-removebg-preview.png", alt: "Жүрек" }
+  ]
+};
+</script>
+
+<!-- ════════════════════════════════════════
+     ЛОГИКА
+     ════════════════════════════════════════ -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+(function() {
+  // ───── Деректерді HTML-ге салу ─────
+  function fillFields() {
+    document.querySelectorAll('[data-field]').forEach(el => {
+      const key = el.getAttribute('data-field');
+      if (WEDDING[key] != null) {
+        if (key === 'mapUrl') el.href = WEDDING[key];
+        else if (key === 'telegramUrl') el.href = WEDDING[key];
+        else if (key === 'poem') el.innerHTML = WEDDING.poem.join('<br>');
+        else el.textContent = WEDDING[key];
+      }
+    });
+  }
+
+  // ───── Той бағдарламасы ─────
+  function fillSchedule() {
+    const list = document.getElementById('schedule-list');
+    list.innerHTML = WEDDING.schedule.map((s, i) => `
+      <div class="tl-row reveal d${Math.min(i, 5)}">
+        <div class="tl-time">${s.time}</div>
+        <span class="tl-dot"></span>
+        <div class="tl-title">${s.title}</div>
+      </div>
+    `).join('');
+  }
+
+  // ───── Палитра ─────
+  function fillPalette() {
+    const row = document.getElementById('palette-row');
+    row.innerHTML = WEDDING.paletteColors.map((c, i) => `
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:${c}; animation: slideIn 0.6s ease ${i * 0.1}s both;"></div>
+        <div class="swatch-name">${WEDDING.paletteNames[i] || ''}</div>
+      </div>
+    `).join('');
+  }
+
+  // ───── Ұшқындар ─────
+  function fillParticles() {
+    document.querySelectorAll('.particles').forEach(p => {
+      const n = parseInt(p.getAttribute('data-particles') || '12', 10);
+      let html = '';
+      for (let i = 0; i < n; i++) {
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        const s = 2 + Math.random() * 3;
+        const d = 6 + Math.random() * 8;
+        const delay = Math.random() * 6;
+        html += `<span style="left:${x}%;top:${y}%;width:${s}px;height:${s}px;animation-duration:${d}s;animation-delay:${delay}s;"></span>`;
+      }
+      p.innerHTML = html;
+    });
+  }
+
+  // ───── Countdown ─────
+  function startCountdown() {
+    const target = new Date(WEDDING.iso).getTime();
+    const $d = document.getElementById('cd-days');
+    const $h = document.getElementById('cd-hours');
+    const $m = document.getElementById('cd-mins');
+    const $s = document.getElementById('cd-secs');
+    const pad = n => String(Math.max(0, n)).padStart(2, '0');
+    function tick() {
+      const diff = Math.max(0, target - Date.now());
+      $d.textContent = pad(Math.floor(diff / 86400000));
+      $h.textContent = pad(Math.floor((diff % 86400000) / 3600000));
+      $m.textContent = pad(Math.floor((diff % 3600000) / 60000));
+      $s.textContent = pad(Math.floor((diff % 60000) / 1000));
+    }
+    tick();
+    setInterval(tick, 1000);
+  }
+
+  // ───── Reveal анимациясы ─────
+  function startReveal() {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15, root: document.getElementById('scroll') });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  }
+
+  // ───── Конверт ─────
+  function setupEnvelope() {
+    const screen = document.getElementById('envelope-screen');
+    const env = document.getElementById('envelope');
+    const btn = document.getElementById('open-btn');
+    const audio = document.getElementById('bg-audio');
+    const musicBtn = document.getElementById('music-btn');
+
+    btn.addEventListener('click', () => {
+      env.classList.add('open');
+      btn.disabled = true;
+
+      // Музыканы қосуға тырысу — бірақ қате шықса да анимация тоқтамасын
+      try {
+        audio.src = WEDDING.musicUrl;
+        const p = audio.play();
+        if (p && typeof p.then === 'function') {
+          p.then(() => {
+            musicBtn.classList.add('playing');
+            musicBtn.style.display = 'flex';
+          }).catch(() => {
+            musicBtn.style.display = 'flex';
+          });
+        } else {
+          musicBtn.style.display = 'flex';
+        }
+      } catch (e) {
+        musicBtn.style.display = 'flex';
+      }
+
+      // Конвертті жабу анимациясы — музыкадан тәуелсіз
+      setTimeout(() => {
+        screen.classList.add('opening');
+        setTimeout(() => {
+          screen.style.display = 'none';
+        }, 900);
+      }, 1100);
+    });
+  }
+
+  // ───── Музыка ─────
+  function setupMusic() {
+    const audio = document.getElementById('bg-audio');
+    const btn = document.getElementById('music-btn');
+    btn.addEventListener('click', () => {
+      if (audio.paused) {
+        if (!audio.src) audio.src = WEDDING.musicUrl;
+        audio.play().then(() => btn.classList.add('playing')).catch(() => {});
+      } else {
+        audio.pause();
+        btn.classList.remove('playing');
+      }
+    });
+  }
+
+  // ───── Тілектер ─────
+  function setupWishes() {
+    const list = document.getElementById('wish-list');
+    const form = document.getElementById('wish-form');
+    const nameI = document.getElementById('wish-name');
+    const textI = document.getElementById('wish-text');
+    const btn = document.getElementById('wish-btn');
+
+    function load() {
+      try {
+        const s = localStorage.getItem('wedding-wishes-classic');
+        if (s) return JSON.parse(s);
+      } catch (e) {}
+      return [
+        { name: 'Гүлмира апай', text: 'Жас жұбайларға ұзақ ғұмыр, шексіз бақыт тілеймін!' },
+        { name: 'Дәурен ағай', text: 'Жарастық пен берекеге толы ғұмыр сүріңіздер!' }
+      ];
+    }
+
+    function render(arr) {
+      list.innerHTML = arr.slice(0, 6).map(w => `
+        <div class="wish">
+          <div class="wish-text">«${w.text}»</div>
+          <div class="wish-name">— ${w.name}</div>
+        </div>
+      `).join('');
+    }
+
+    let wishes = load();
+    render(wishes);
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const n = nameI.value.trim();
+      const t = textI.value.trim();
+      if (!n || !t) return;
+      wishes = [{ name: n, text: t }, ...wishes];
+      try { localStorage.setItem('wedding-wishes-classic', JSON.stringify(wishes)); } catch (e) {}
+      render(wishes);
+      nameI.value = '';
+      textI.value = '';
+      btn.textContent = '✓ ТІЛЕК ҚАБЫЛДАНДЫ';
+      setTimeout(() => { btn.textContent = 'ТІЛЕК ҚАЛДЫРУ'; }, 2500);
+    });
+  }
+
+  // ───── RSVP ─────
+  function setupRSVP() {
+    const form = document.getElementById('rsvp-form');
+    const formSec = document.getElementById('rsvp-form-sec');
+    const thanks = document.getElementById('rsvp-thanks');
+    const btn = document.getElementById('rsvp-btn');
+    const nameI = document.getElementById('rsvp-name');
+    const ans = document.querySelectorAll('.answer-btn');
+    let answer = '';
+
+    function checkValid() {
+      btn.disabled = !(nameI.value.trim() && answer);
+    }
+
+    ans.forEach(b => b.addEventListener('click', () => {
+      ans.forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      answer = b.dataset.val;
+      checkValid();
+    }));
+    nameI.addEventListener('input', checkValid);
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (btn.disabled) return;
+      formSec.style.display = 'none';
+      thanks.classList.add('show');
+      startHearts();
+      startConfetti();
+    });
+  }
+
+  // ───── Жүректер + Confetti ─────
+  function startHearts() {
+    const c = document.getElementById('hearts-rain');
+    let html = '';
+    for (let i = 0; i < 16; i++) {
+      const left = Math.random() * 100;
+      const delay = Math.random() * 2;
+      const dur = 3 + Math.random() * 2;
+      const size = 12 + Math.random() * 14;
+      html += `<span style="left:${left}%; font-size:${size}px; animation-duration:${dur}s; animation-delay:${delay}s;">❦</span>`;
+    }
+    c.innerHTML = html;
+  }
+
+  function startConfetti() {
+    const c = document.getElementById('confetti-rain');
+    const colors = ['#B8935A', '#E5C896', '#6B2535', '#8B6F2F', '#F5ECD9', '#9A2A3A'];
+    let html = '';
+    for (let i = 0; i < 36; i++) {
+      const left = Math.random() * 100;
+      const delay = Math.random() * 1.5;
+      const dur = 2.5 + Math.random() * 2;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const rot = (Math.random() * 720 + 360) + 'deg';
+      const sway = (Math.random() * 160 - 80) + 'px';
+      const w = 6 + Math.random() * 6;
+      const h = 10 + Math.random() * 8;
+      html += `<span style="left:${left}%; width:${w}px; height:${h}px; background:${color}; animation-duration:${dur}s; animation-delay:${delay}s; --rot:${rot}; --sway:${sway};"></span>`;
+    }
+    c.innerHTML = html;
+  }
+
+  // ───── Желбезек жапырақтар (hero) ─────
+  function fillPetals() {
+    const c = document.getElementById('petals');
+    if (!c) return;
+    const petalSvg = `<svg viewBox="0 0 20 20" fill="none"><ellipse cx="10" cy="10" rx="4" ry="9" fill="#C9A961" opacity="0.6" transform="rotate(35 10 10)"/><ellipse cx="10" cy="10" rx="2" ry="6" fill="#E5C896" opacity="0.5" transform="rotate(35 10 10)"/></svg>`;
+    let html = '';
+    for (let i = 0; i < 14; i++) {
+      const left = Math.random() * 100;
+      const size = 8 + Math.random() * 10;
+      const dur = 10 + Math.random() * 12;
+      const delay = Math.random() * 14;
+      const dx = (Math.random() * 80 - 40) + 'px';
+      const rot = (Math.random() * 720 + 180) + 'deg';
+      html += `<div class="petal" style="left:${left}%; width:${size}px; height:${size}px; animation-duration:${dur}s; animation-delay:${delay}s; --dx:${dx}; --rot:${rot};">${petalSvg}</div>`;
+    }
+    c.innerHTML = html;
+  }
+
+  // ───── Скролл прогресс + Sticky монограмма + Nav dots ─────
+  function setupScrollUI() {
+    const scroll = document.getElementById('scroll');
+    const bar = document.getElementById('progress-bar');
+    const mono = document.getElementById('top-mono');
+    const dotsWrap = document.getElementById('nav-dots');
+
+    // Nav dots — әр section үшін
+    const sections = scroll.querySelectorAll('section');
+    let dotsHtml = '';
+    for (let i = 0; i < sections.length; i++) {
+      dotsHtml += `<div class="nav-dot" data-i="${i}"></div>`;
+    }
+    dotsWrap.innerHTML = dotsHtml;
+    const dots = dotsWrap.querySelectorAll('.nav-dot');
+
+    function update() {
+      const total = scroll.scrollHeight - scroll.clientHeight;
+      const sc = scroll.scrollTop;
+      const pct = total > 0 ? (sc / total) * 100 : 0;
+      bar.style.width = pct + '%';
+
+      // Sticky монограмма — hero бөлімінен өткен соң
+      if (sc > 400) mono.classList.add('show');
+      else mono.classList.remove('show');
+
+      // Қай бөлім ортада тұр
+      const mid = sc + scroll.clientHeight / 2;
+      let active = 0;
+      sections.forEach((s, i) => {
+        if (s.offsetTop <= mid) active = i;
+      });
+      dots.forEach((d, i) => d.classList.toggle('active', i === active));
+    }
+    scroll.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+
+  // ───── Күнтізбеге сақтау (.ics) ─────
+  function setupICal() {
+    const btn = document.getElementById('ical-btn');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const start = new Date(WEDDING.iso);
+      const end = new Date(start.getTime() + 5 * 3600 * 1000); // +5 сағат
+      const fmt = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+      const title = `${WEDDING.groom} & ${WEDDING.bride} — үйлену тойы`;
+      const desc = WEDDING.invitationLine.replace(/\n/g, ' ');
+      const loc = `${WEDDING.venueName} ${WEDDING.venueType}, ${WEDDING.venueAddress}`;
+      const ics = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Wedding//KZ//',
+        'BEGIN:VEVENT',
+        `UID:${Date.now()}@wedding.kz`,
+        `DTSTAMP:${fmt(new Date())}`,
+        `DTSTART:${fmt(start)}`,
+        `DTEND:${fmt(end)}`,
+        `SUMMARY:${title}`,
+        `DESCRIPTION:${desc}`,
+        `LOCATION:${loc}`,
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+      const blob = new Blob([ics], { type: 'text/calendar' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${WEDDING.groom}-${WEDDING.bride}-toi.ics`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+      // Растау
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ САҚТАЛДЫ';
+      setTimeout(() => { btn.innerHTML = orig; }, 2000);
+    });
+  }
+
+  // ───── Карта iframe-ін кеш жүктеу ─────
+  function setupMap() {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const f = e.target;
+          if (f.dataset.src && f.src !== f.dataset.src) {
+            f.src = f.dataset.src;
+          }
+          obs.unobserve(f);
+        }
+      });
+    }, { root: document.getElementById('scroll'), rootMargin: '200px' });
+    obs.observe(document.getElementById('map-iframe'));
+  }
+
+  // ───── ГАЛЕРЕЯ + LIGHTBOX ─────
+  function buildGallery() {
+    const grid = document.getElementById('gallery-grid');
+    if (!grid) return;
+    const photos = WEDDING.photos || [];
+    if (!photos.length) return;
+    const visibleCount = 6;
+
+    grid.innerHTML = photos.slice(0, visibleCount).map((p, i) => `
+      <div class="photo-tile" data-idx="${i}">
+        <img src="${p.src}" alt="${p.alt}" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,rgba(245,236,217,0.1),rgba(184,147,90,0.25))';" />
+        <div class="overlay"></div>
+      </div>
+    `).join('') + (photos.length > visibleCount ? `
+      <div class="photo-tile more-tile" data-idx="${visibleCount}">
+        <div class="more-tile-inner">
+          <span class="num">+${photos.length - visibleCount}</span>
+          <span class="label">ФОТО</span>
+        </div>
+      </div>
+    ` : '');
+
+    // Lightbox ішін толтыру
+    var track = document.getElementById('lb-track');
+    var dots = document.getElementById('lb-dots');
+    track.innerHTML = photos.map(function(p) {
+      return '<div class="lb-slide"><img src="' + p.src + '" alt="' + p.alt + '" /></div>';
+    }).join('');
+    dots.innerHTML = photos.map(function(_, i) {
+      return '<div class="lb-dot' + (i === 0 ? ' active' : '') + '" data-i="' + i + '"></div>';
+    }).join('');
+
+    // Клик
+    grid.querySelectorAll('.photo-tile').forEach(function(tile) {
+      tile.addEventListener('click', function() {
+        openLightbox(parseInt(tile.dataset.idx));
+      });
+    });
+  }
+
+  var lbIdx = 0, touchStartX = 0, touchStartY = 0;
+  function openLightbox(idx) {
+    var lb = document.getElementById('lightbox');
+    lbIdx = idx;
+    lb.classList.add('open');
+    updateLightbox();
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function updateLightbox() {
+    document.getElementById('lb-track').style.transform = 'translateX(-' + (lbIdx * 100) + 'vw)';
+    document.getElementById('lb-counter').textContent = (lbIdx + 1) + ' / ' + WEDDING.photos.length;
+    var dots = document.querySelectorAll('#lb-dots .lb-dot');
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === lbIdx); });
+  }
+  function lbPrev() { lbIdx = (lbIdx - 1 + WEDDING.photos.length) % WEDDING.photos.length; updateLightbox(); }
+  function lbNext() { lbIdx = (lbIdx + 1) % WEDDING.photos.length; updateLightbox(); }
+
+  var lbEl = document.getElementById('lightbox');
+  if (lbEl) {
+    var lbCloseEl = document.getElementById('lb-close');
+    var lbPrevEl = document.getElementById('lb-prev');
+    var lbNextEl = document.getElementById('lb-next');
+    if (lbCloseEl) lbCloseEl.addEventListener('click', closeLightbox);
+    if (lbPrevEl) lbPrevEl.addEventListener('click', function(e) { e.stopPropagation(); lbPrev(); });
+    if (lbNextEl) lbNextEl.addEventListener('click', function(e) { e.stopPropagation(); lbNext(); });
+    lbEl.addEventListener('click', function(e) { if (e.target === this) closeLightbox(); });
+    lbEl.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    lbEl.addEventListener('touchend', function(e) {
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      var dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) { dx > 0 ? lbPrev() : lbNext(); }
+      if (Math.abs(dy) > Math.abs(dx) && dy > 80) { closeLightbox(); }
+    });
+  }
+  document.addEventListener('keydown', function(e) {
+    var lb2 = document.getElementById('lightbox');
+    if (!lb2 || !lb2.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') lbPrev();
+    if (e.key === 'ArrowRight') lbNext();
+  });
+
+  // ───── INSTAGRAM STORIES ─────
+  function buildStories() {
+    var content = document.getElementById('stories-content');
+    var progress = document.getElementById('stories-progress');
+    if (!content || !progress) return;
+
+    var stories = [
+      { g: 'g1', h: '<div class="story-icon">💍</div><div class="story-title">' + WEDDING.groom + '<br>&amp;<br>' + WEDDING.bride + '</div><div class="story-subtitle">' + WEDDING.ceremonyTitle + '</div>' },
+      { g: 'g2', h: '<div class="story-big-date">' + WEDDING.day + '<small>' + WEDDING.monthUpper + ' &middot; ' + WEDDING.year + '</small></div><div class="story-subtitle">' + WEDDING.weekday + ' &middot; ' + WEDDING.time + '</div>' },
+      { g: 'g3', h: '<div class="story-venue">' + WEDDING.venueName + '</div><div class="story-venue-sub">' + WEDDING.venueType + '</div><div class="story-subtitle" style="margin-top:20px;">' + WEDDING.venueAddress + '</div>' },
+      { g: 'g4', h: WEDDING.schedule.map(function(s) { return '<div class="story-schedule-item"><div class="t">' + s.time + '</div><div class="l">' + s.title + '</div></div>'; }).join('') },
+      { g: 'g5', h: '<div class="story-icon">👗</div><div class="story-subtitle">' + WEDDING.dressNote + '</div><div style="margin-top:32px;display:flex;gap:8px;justify-content:center;">' + WEDDING.paletteColors.map(function(c) { return '<div style="width:36px;height:48px;background:' + c + ';border-radius:2px;border:1px solid rgba(255,255,255,0.2);"></div>'; }).join('') + '</div>' },
+      { g: 'g1', h: '<div class="story-title" style="font-size:42px;">Рахмет!</div><div class="story-subtitle">Сіздерді тойымызда күтеміз!</div><div style="margin-top:28px;font-family:\'Klementina\',serif;font-size:28px;color:var(--gold-light);">' + WEDDING.day + ' ' + WEDDING.monthName + ' &middot; ' + WEDDING.time + '</div>' }
+    ];
+
+    content.innerHTML = stories.map(function(s, i) {
+      return '<div class="story-slide ' + s.g + (i === 0 ? ' current' : '') + '" data-i="' + i + '">' + s.h + '</div>';
+    }).join('');
+    progress.innerHTML = stories.map(function(_, i) {
+      return '<div class="bar-track"><div class="bar-fill' + (i === 0 ? '' : '') + '" data-i="' + i + '"></div></div>';
+    }).join('');
+
+    document.getElementById('stories-date').textContent = WEDDING.day + ' ' + WEDDING.monthName;
+  }
+
+  var storyIdx = 0, storyTimer = null, storyCount = 6;
+  function openStories() {
+    document.getElementById('stories-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    storyIdx = 0;
+    goToStory(0);
+    startStoryTimer();
+  }
+  function closeStories() {
+    document.getElementById('stories-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+    clearTimeout(storyTimer);
+    var bars = document.querySelectorAll('#stories-progress .bar-fill');
+    bars.forEach(function(b) { b.classList.remove('done'); b.style.width = '0'; });
+  }
+  function goToStory(idx) {
+    storyIdx = idx;
+    document.querySelectorAll('.story-slide').forEach(function(s, i) { s.classList.toggle('current', i === idx); });
+    var bars = document.querySelectorAll('#stories-progress .bar-fill');
+    bars.forEach(function(b, i) {
+      if (i < idx) b.classList.add('done');
+      else { b.classList.remove('done'); b.style.width = '0'; }
+    });
+    // Ағымдағы бар анимациясы
+    var activeBar = bars[idx];
+    activeBar.style.transition = 'none';
+    activeBar.style.width = '0';
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        activeBar.style.transition = 'width 5s linear';
+        activeBar.style.width = '100%';
+      });
+    });
+  }
+  function startStoryTimer() {
+    clearTimeout(storyTimer);
+    storyTimer = setTimeout(function() {
+      if (storyIdx < storyCount - 1) { goToStory(storyIdx + 1); startStoryTimer(); }
+      else { closeStories(); }
+    }, 5000);
+  }
+  function nextStory() {
+    if (storyIdx < storyCount - 1) { goToStory(storyIdx + 1); startStoryTimer(); }
+    else { closeStories(); }
+  }
+  function prevStory() {
+    if (storyIdx > 0) { goToStory(storyIdx - 1); startStoryTimer(); }
+  }
+
+  var tapRight = document.getElementById('tap-right');
+  var tapLeft  = document.getElementById('tap-left');
+  var stClose  = document.getElementById('stories-close');
+  if (tapRight) tapRight.addEventListener('click', nextStory);
+  if (tapLeft)  tapLeft.addEventListener('click', prevStory);
+  if (stClose)  stClose.addEventListener('click', closeStories);
+
+  // Hold to pause
+  var holdTimer = null, storyPaused = false;
+  var so = document.getElementById('stories-overlay');
+  if (so) {
+    so.addEventListener('mousedown', function() { holdTimer = setTimeout(function() { storyPaused = true; clearTimeout(storyTimer); }, 200); });
+    so.addEventListener('mouseup', function() { clearTimeout(holdTimer); if (storyPaused) { storyPaused = false; startStoryTimer(); } });
+    so.addEventListener('touchstart', function() { holdTimer = setTimeout(function() { storyPaused = true; clearTimeout(storyTimer); }, 200); });
+    so.addEventListener('touchend', function() { clearTimeout(holdTimer); if (storyPaused) { storyPaused = false; startStoryTimer(); } });
+  }
+
+  // Stories батырмалары
+  var stBtnHero = document.getElementById('stories-btn-hero');
+  if (stBtnHero) stBtnHero.addEventListener('click', openStories);
+  // Floating батырма
+  (function() {
+    var fb = document.createElement('button');
+    fb.id = 'stories-btn-float';
+    fb.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="12" cy="12" r="3.5"/></svg>';
+    fb.style.cssText = 'position:absolute;bottom:80px;right:18px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#833AB4,#C13584,#E1306C,#FD1D1D,#F77737);background-size:200% 200%;animation:gradientShift 4s ease-in-out infinite;border:2px solid rgba(255,255,255,0.3);box-shadow:0 4px 16px rgba(0,0,0,0.4);color:white;cursor:pointer;z-index:1490;display:flex;align-items:center;justify-content:center;transition:transform 0.3s;';
+    fb.addEventListener('click', openStories);
+    fb.addEventListener('mouseenter', function() { fb.style.transform = 'scale(1.1)'; });
+    fb.addEventListener('mouseleave', function() { fb.style.transform = 'scale(1)'; });
+    document.querySelector('.phone').appendChild(fb);
+  })();
+
+  // ───── ІСКЕ ҚОСУ ─────
+  fillFields();
+  fillSchedule();
+  fillPalette();
+  fillParticles();
+  fillPetals();
+  startCountdown();
+  setupEnvelope();
+  setupMusic();
+  setupWishes();
+  setupRSVP();
+  setupICal();
+
+  // Алдымен reveal observer + scroll UI (контент көрінуі үшін)
+  requestAnimationFrame(() => {
+    startReveal();
+    setupMap();
+    setupScrollUI();
+  });
+
+  // Сосын жаңа функциялар (олар қате шығарса да контент бұрыннан көрінеді)
+  try { buildGallery(); } catch(e) {}
+  try { buildStories(); } catch(e) {}
+})();
+}); // DOMContentLoaded
+</script>
+
+
+
+</body>
+</html>

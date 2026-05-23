@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Той шақыру — Генератор</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage: #8ba888;
+    --sage-dark: #6d8a6a;
+    --sage-light: #c4d4c1;
+    --cream: #faf7f2;
+    --ink: #2c3a2a;
+    --muted: #7a8579;
+    --gold: #b9985a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--cream); color: var(--ink); font-family: 'Inter', sans-serif; line-height: 1.6; }
+
+  /* ============ ADMIN FORM ============ */
+  .admin {
+    max-width: 720px; margin: 0 auto; padding: 32px 20px 80px;
+  }
+  .admin h1 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 500;
+    font-size: 32px; color: var(--sage-dark); margin-bottom: 8px;
+  }
+  .admin .sub { color: var(--muted); margin-bottom: 28px; font-size: 14px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  .field label { font-size: 13px; color: var(--muted); font-weight: 500; }
+  .field input, .field textarea, .field select {
+    border: 1px solid #d8dcd4; border-radius: 8px; padding: 10px 12px;
+    font-family: inherit; font-size: 14px; background: white;
+    transition: border-color 0.15s;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    outline: none; border-color: var(--sage);
+  }
+  .field textarea { min-height: 80px; resize: vertical; }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif; font-size: 20px;
+    color: var(--sage-dark); margin: 22px 0 12px; font-weight: 500;
+  }
+  .actions {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px;
+  }
+  .btn {
+    background: var(--sage); color: white; border: none; padding: 12px 22px;
+    border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;
+    font-family: inherit; transition: background 0.15s; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn:hover { background: var(--sage-dark); }
+  .btn.secondary { background: white; color: var(--sage-dark); border: 1px solid var(--sage); }
+  .btn.secondary:hover { background: var(--sage-light); }
+  .url-box {
+    background: white; border: 1px dashed var(--sage); border-radius: 8px;
+    padding: 14px; margin-top: 18px; font-size: 12px; word-break: break-all;
+    color: var(--ink); display: none;
+  }
+  .url-box.show { display: block; }
+  .url-box .lbl { color: var(--sage-dark); font-weight: 600; margin-bottom: 6px; display: block; }
+
+  /* ============ INVITATION PAGE ============ */
+  .invite { display: none; }
+  .invite.show { display: block; }
+  .invite-wrap {
+    max-width: 480px; margin: 0 auto; background: var(--cream);
+    min-height: 100vh; position: relative;
+  }
+  .hero {
+    padding: 60px 28px 40px; text-align: center; position: relative;
+  }
+  .hero .ornament {
+    font-size: 24px; color: var(--sage); letter-spacing: 8px; margin-bottom: 18px;
+  }
+  .hero .title {
+    font-family: 'Great Vibes', cursive; color: var(--sage-dark);
+    font-size: 56px; line-height: 1; margin-bottom: 6px;
+  }
+  .hero .subtitle {
+    font-family: 'Cormorant Garamond', serif; font-size: 14px;
+    letter-spacing: 4px; text-transform: uppercase; color: var(--muted);
+    margin-bottom: 30px;
+  }
+  .couple {
+    margin: 30px 0; padding: 0 20px;
+  }
+  .couple .name {
+    font-family: 'Great Vibes', cursive; font-size: 64px;
+    color: var(--ink); line-height: 1.1;
+  }
+  .couple .amp {
+    font-family: 'Great Vibes', cursive; font-size: 40px;
+    color: var(--sage); margin: 4px 0;
+  }
+  .photo-frame {
+    width: 220px; height: 220px; margin: 30px auto;
+    border-radius: 50%; overflow: hidden; background: var(--sage-light);
+    border: 4px solid white; box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+  .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+  .photo-placeholder {
+    width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+    color: var(--sage-dark); font-family: 'Cormorant Garamond', serif; font-size: 14px;
+  }
+  .invitation-text {
+    padding: 0 32px; text-align: center; font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; color: var(--ink); line-height: 1.7; margin: 20px 0;
+  }
+  .invitation-text .greeting {
+    font-style: italic; color: var(--sage-dark); margin-bottom: 16px;
+  }
+  .divider {
+    width: 60px; height: 1px; background: var(--sage); margin: 30px auto;
+  }
+  .date-block {
+    text-align: center; padding: 30px 20px; background: white;
+    margin: 20px 16px; border-radius: 4px;
+  }
+  .date-block .day-name {
+    font-family: 'Cormorant Garamond', serif; font-size: 13px;
+    letter-spacing: 6px; text-transform: uppercase; color: var(--muted);
+  }
+  .date-block .day {
+    font-family: 'Great Vibes', cursive; font-size: 100px;
+    color: var(--sage-dark); line-height: 1; margin: 4px 0;
+  }
+  .date-block .month-year {
+    font-family: 'Cormorant Garamond', serif; font-size: 18px;
+    letter-spacing: 4px; color: var(--ink);
+  }
+  .date-block .time {
+    margin-top: 14px; font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; color: var(--sage-dark); font-weight: 500;
+  }
+  .countdown {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    padding: 0 20px; margin: 24px 0;
+  }
+  .cd-cell {
+    background: var(--sage-light); padding: 12px 6px; border-radius: 4px;
+    text-align: center;
+  }
+  .cd-cell .num {
+    font-family: 'Cormorant Garamond', serif; font-size: 28px;
+    color: var(--sage-dark); font-weight: 600;
+  }
+  .cd-cell .lbl {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--muted);
+  }
+  .info-block {
+    padding: 30px 28px; text-align: center;
+  }
+  .info-block h3 {
+    font-family: 'Cormorant Garamond', serif; font-size: 20px;
+    color: var(--sage-dark); margin-bottom: 12px; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .info-block p { font-size: 15px; color: var(--ink); margin-bottom: 6px; }
+  .info-block .small { font-size: 13px; color: var(--muted); }
+  .program-list {
+    list-style: none; padding: 0; max-width: 320px; margin: 0 auto;
+  }
+  .program-list li {
+    display: flex; justify-content: space-between; padding: 10px 0;
+    border-bottom: 1px dashed var(--sage-light); font-size: 14px;
+  }
+  .program-list li:last-child { border-bottom: none; }
+  .program-list .time-col { color: var(--sage-dark); font-weight: 600; }
+  .map-btn, .rsvp-btn {
+    display: inline-block; background: var(--sage); color: white;
+    padding: 12px 28px; border-radius: 30px; text-decoration: none;
+    font-size: 14px; margin-top: 14px; transition: background 0.15s;
+  }
+  .map-btn:hover, .rsvp-btn:hover { background: var(--sage-dark); }
+  .footer-quote {
+    padding: 40px 28px 60px; text-align: center;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    color: var(--muted); font-size: 16px; line-height: 1.6;
+  }
+  .footer-quote::before, .footer-quote::after {
+    content: '~'; color: var(--sage); margin: 0 12px;
+  }
+
+  /* ============ MODE TOGGLE ============ */
+  .mode-bar {
+    background: var(--sage-dark); color: white; padding: 8px 16px;
+    text-align: center; font-size: 13px; position: sticky; top: 0; z-index: 10;
+  }
+  .mode-bar a { color: white; text-decoration: underline; }
+  .copy-toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: var(--ink); color: white; padding: 10px 20px;
+    border-radius: 30px; font-size: 13px; opacity: 0; pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .copy-toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- ============ ADMIN FORM ============ -->
+<div class="admin" id="adminView">
+  <h1>Той шақыру генераторы</h1>
+  <p class="sub">Деректерді толтырыңыз — жеке шақыру сілтемесі дайын болады.</p>
+
+  <div class="section-title">Той иелері</div>
+  <div class="grid">
+    <div class="field">
+      <label>Күйеу жігіт есімі</label>
+      <input type="text" id="groom" placeholder="Алихан" value="Алихан" />
+    </div>
+    <div class="field">
+      <label>Қалыңдық есімі</label>
+      <input type="text" id="bride" placeholder="Аружан" value="Аружан" />
+    </div>
+  </div>
+
+  <div class="section-title">Той туралы</div>
+  <div class="grid">
+    <div class="field">
+      <label>Той күні</label>
+      <input type="date" id="date" value="2026-08-15" />
+    </div>
+    <div class="field">
+      <label>Той уақыты</label>
+      <input type="time" id="time" value="18:00" />
+    </div>
+  </div>
+  <div class="field">
+    <label>Той өткізілу орны (мейрамхана аты)</label>
+    <input type="text" id="venue" placeholder="«Думан» мейрамханасы" value="«Думан» мейрамханасы" />
+  </div>
+  <div class="field">
+    <label>Толық мекенжай</label>
+    <input type="text" id="address" placeholder="Алматы қ., Абай даңғ. 123" value="Алматы қ., Абай даңғ. 123" />
+  </div>
+  <div class="field">
+    <label>2GIS немесе Google Maps сілтемесі (міндетті емес)</label>
+    <input type="url" id="mapUrl" placeholder="https://2gis.kz/almaty/..." />
+  </div>
+
+  <div class="section-title">Фото (міндетті емес)</div>
+  <div class="field">
+    <label>Фото URL — интернеттегі сурет сілтемесі</label>
+    <input type="url" id="photoUrl" placeholder="https://..." />
+  </div>
+
+  <div class="section-title">Той бағдарламасы (міндетті емес)</div>
+  <div class="field">
+    <label>Бағдарлама — әр жол: «уақыт — оқиға»</label>
+    <textarea id="program" placeholder="18:00 — Қонақтарды қарсы алу
+19:00 — Той бастау
+20:00 — Қыз ұзату
+21:00 — Бет ашар
+22:00 — Той кеші"></textarea>
+  </div>
+
+  <div class="section-title">Қосымша</div>
+  <div class="grid">
+    <div class="field">
+      <label>Дресс-код (міндетті емес)</label>
+      <input type="text" id="dresscode" placeholder="Cocktail / Classic" />
+    </div>
+    <div class="field">
+      <label>RSVP телефон (WhatsApp үшін)</label>
+      <input type="tel" id="rsvpPhone" placeholder="+7 700 000 0000" />
+    </div>
+  </div>
+  <div class="field">
+    <label>Қошемет сөз (міндетті емес)</label>
+    <textarea id="quote" placeholder="«Махаббат — өмірдің ең әдемі мерекесі»"></textarea>
+  </div>
+
+  <div class="actions">
+    <button class="btn" onclick="generateLink()">Сілтеме жасау</button>
+    <button class="btn secondary" onclick="previewInvite()">Алдын ала қарау</button>
+  </div>
+
+  <div class="url-box" id="urlBox">
+    <span class="lbl">Сіздің шақыру сілтемеңіз:</span>
+    <div id="generatedUrl"></div>
+    <div class="actions">
+      <button class="btn" onclick="copyUrl()">Сілтемені көшіру</button>
+      <a class="btn secondary" id="waShareBtn" target="_blank">WhatsApp арқылы жіберу</a>
+      <a class="btn secondary" id="openBtn" target="_blank">Жаңа бетте ашу</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ INVITATION PAGE ============ -->
+<div class="invite" id="inviteView">
+  <div class="invite-wrap">
+    <div class="hero">
+      <div class="ornament">~ ❋ ~</div>
+      <div class="title">Тойға шақыру</div>
+      <div class="subtitle">Save the date</div>
+
+      <div class="photo-frame" id="photoFrame">
+        <div class="photo-placeholder">Біздің фото</div>
+      </div>
+
+      <div class="couple">
+        <div class="name" id="groomName">Алихан</div>
+        <div class="amp">&amp;</div>
+        <div class="name" id="brideName">Аружан</div>
+      </div>
+    </div>
+
+    <div class="invitation-text">
+      <div class="greeting">Қымбатты қонақ!</div>
+      Сіздерді өміріміздің ең қуанышты күнінде —<br/>
+      <b><span id="groomName2">Алихан</span></b> мен <b><span id="brideName2">Аружанның</span></b><br/>
+      некелесу тойына шақырамыз.
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="date-block">
+      <div class="day-name" id="dayName">Сенбі</div>
+      <div class="day" id="dayNum">15</div>
+      <div class="month-year"><span id="monthName">Тамыз</span> <span id="yearNum">2026</span></div>
+      <div class="time" id="timeText">18:00</div>
+    </div>
+
+    <div class="countdown" id="countdown">
+      <div class="cd-cell"><div class="num" id="cdDays">—</div><div class="lbl">күн</div></div>
+      <div class="cd-cell"><div class="num" id="cdHours">—</div><div class="lbl">сағат</div></div>
+      <div class="cd-cell"><div class="num" id="cdMins">—</div><div class="lbl">минут</div></div>
+      <div class="cd-cell"><div class="num" id="cdSecs">—</div><div class="lbl">секунд</div></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="info-block">
+      <h3>Өткізілу орны</h3>
+      <p id="venueText">«Думан» мейрамханасы</p>
+      <p class="small" id="addressText">Алматы қ., Абай даңғ. 123</p>
+      <a class="map-btn" id="mapBtn" target="_blank" style="display:none">Картадан қарау</a>
+    </div>
+
+    <div id="programBlock" class="info-block" style="display:none">
+      <h3>Той бағдарламасы</h3>
+      <ul class="program-list" id="programList"></ul>
+    </div>
+
+    <div id="dresscodeBlock" class="info-block" style="display:none">
+      <h3>Дресс-код</h3>
+      <p id="dresscodeText"></p>
+    </div>
+
+    <div id="rsvpBlock" class="info-block" style="display:none">
+      <h3>Растау</h3>
+      <p class="small">Келетініңізді растауыңызды сұраймыз</p>
+      <a class="rsvp-btn" id="rsvpBtn" target="_blank">WhatsApp арқылы растау</a>
+    </div>
+
+    <div class="footer-quote" id="quoteBlock" style="display:none">
+      <span id="quoteText"></span>
+    </div>
+  </div>
+</div>
+
+<div class="copy-toast" id="toast">Сілтеме көшірілді</div>
+
+<script>
+  const KZ_MONTHS = ['Қаңтар','Ақпан','Наурыз','Сәуір','Мамыр','Маусым','Шілде','Тамыз','Қыркүйек','Қазан','Қараша','Желтоқсан'];
+  const KZ_DAYS = ['Жексенбі','Дүйсенбі','Сейсенбі','Сәрсенбі','Бейсенбі','Жұма','Сенбі'];
+
+  function getFormData() {
+    return {
+      g: document.getElementById('groom').value,
+      b: document.getElementById('bride').value,
+      d: document.getElementById('date').value,
+      t: document.getElementById('time').value,
+      v: document.getElementById('venue').value,
+      a: document.getElementById('address').value,
+      m: document.getElementById('mapUrl').value,
+      p: document.getElementById('photoUrl').value,
+      pr: document.getElementById('program').value,
+      dc: document.getElementById('dresscode').value,
+      rp: document.getElementById('rsvpPhone').value,
+      q: document.getElementById('quote').value,
+    };
+  }
+
+  function encodeData(obj) {
+    const json = JSON.stringify(obj);
+    return btoa(unescape(encodeURIComponent(json)));
+  }
+
+  function decodeData(str) {
+    try {
+      return JSON.parse(decodeURIComponent(escape(atob(str))));
+    } catch(e) { return null; }
+  }
+
+  function generateLink() {
+    const data = getFormData();
+    const encoded = encodeData(data);
+    const url = window.location.origin + window.location.pathname + '#' + encoded;
+    document.getElementById('generatedUrl').textContent = url;
+    document.getElementById('urlBox').classList.add('show');
+    document.getElementById('openBtn').href = url;
+    const waText = encodeURIComponent('Тойға шақырамыз! ' + url);
+    document.getElementById('waShareBtn').href = 'https://wa.me/?text=' + waText;
+  }
+
+  function copyUrl() {
+    const url = document.getElementById('generatedUrl').textContent;
+    navigator.clipboard.writeText(url).then(() => {
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 1800);
+    });
+  }
+
+  function previewInvite() {
+    const data = getFormData();
+    renderInvite(data);
+  }
+
+  function renderInvite(d) {
+    document.getElementById('adminView').style.display = 'none';
+    document.getElementById('inviteView').classList.add('show');
+
+    document.getElementById('groomName').textContent = d.g || '';
+    document.getElementById('brideName').textContent = d.b || '';
+    document.getElementById('groomName2').textContent = d.g || '';
+    document.getElementById('brideName2').textContent = (d.b || '') + 'ның';
+
+    if (d.d) {
+      const dt = new Date(d.d + 'T' + (d.t || '18:00'));
+      document.getElementById('dayName').textContent = KZ_DAYS[dt.getDay()];
+      document.getElementById('dayNum').textContent = dt.getDate();
+      document.getElementById('monthName').textContent = KZ_MONTHS[dt.getMonth()];
+      document.getElementById('yearNum').textContent = dt.getFullYear();
+      document.getElementById('timeText').textContent = d.t || '';
+      startCountdown(dt);
+    }
+
+    document.getElementById('venueText').textContent = d.v || '';
+    document.getElementById('addressText').textContent = d.a || '';
+    if (d.m) {
+      const mb = document.getElementById('mapBtn');
+      mb.href = d.m; mb.style.display = 'inline-block';
+    }
+
+    if (d.p) {
+      const frame = document.getElementById('photoFrame');
+      frame.innerHTML = '<img src="' + d.p + '" alt="" onerror="this.parentElement.innerHTML=\'<div class=photo-placeholder>Біздің фото</div>\'" />';
+    }
+
+    if (d.pr && d.pr.trim()) {
+      const block = document.getElementById('programBlock');
+      const list = document.getElementById('programList');
+      list.innerHTML = '';
+      d.pr.split('\n').forEach(line => {
+        const parts = line.split('—').map(s => s.trim());
+        if (parts.length >= 2) {
+          const li = document.createElement('li');
+          li.innerHTML = '<span class="time-col">' + parts[0] + '</span><span>' + parts.slice(1).join(' — ') + '</span>';
+          list.appendChild(li);
+        } else if (line.trim()) {
+          const li = document.createElement('li');
+          li.innerHTML = '<span>' + line.trim() + '</span>';
+          list.appendChild(li);
+        }
+      });
+      if (list.children.length) block.style.display = 'block';
+    }
+
+    if (d.dc) {
+      document.getElementById('dresscodeBlock').style.display = 'block';
+      document.getElementById('dresscodeText').textContent = d.dc;
+    }
+
+    if (d.rp) {
+      document.getElementById('rsvpBlock').style.display = 'block';
+      const cleanPhone = d.rp.replace(/[^\d]/g, '');
+      const msg = encodeURIComponent(`Сәлеметсіз бе! ${d.g || ''} пен ${d.b || ''} тойына келе аламын/алмаймын деп растағым келеді.`);
+      document.getElementById('rsvpBtn').href = 'https://wa.me/' + cleanPhone + '?text=' + msg;
+    }
+
+    if (d.q) {
+      document.getElementById('quoteBlock').style.display = 'block';
+      document.getElementById('quoteText').textContent = d.q;
+    }
+  }
+
+  function startCountdown(targetDate) {
+    function tick() {
+      const now = new Date();
+      const diff = targetDate - now;
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML = '<div class="cd-cell" style="grid-column:1/-1;background:var(--sage-dark);color:white"><div class="num" style="color:white">Той бүгін!</div></div>';
+        return;
+      }
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins = Math.floor((diff % 3600000) / 60000);
+      const secs = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cdDays').textContent = days;
+      document.getElementById('cdHours').textContent = hours;
+      document.getElementById('cdMins').textContent = mins;
+      document.getElementById('cdSecs').textContent = secs;
+    }
+    tick();
+    setInterval(tick, 1000);
+  }
+
+  // On load: check if hash has data
+  (function init() {
+    if (window.location.hash && window.location.hash.length > 1) {
+      const data = decodeData(window.location.hash.slice(1));
+      if (data) {
+        renderInvite(data);
+      }
+    }
+  })();
+</script>
+
+</body>
+</html>

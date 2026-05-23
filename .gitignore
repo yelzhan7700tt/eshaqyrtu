@@ -1,0 +1,11 @@
+# Барлығын блоктаймыз
+/*
+/*/
+
+# Тек сайт файлдарын рұқсат етеміз
+!.gitignore
+!Той Шақыру.html
+!Той Шақыру Plus.html
+!Той Шақыру Plus конвертсіз.html
+!shaqyru-mvp.html
+!wedding-data.js
