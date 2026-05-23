@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Той шақыру — Қазақы</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a0608;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Georgia',serif;overflow:hidden}
+.stage{width:390px;height:844px;position:relative;overflow:hidden;background:linear-gradient(180deg,#3D0F1A 0%,#1a0608 100%)}
+.envelope-screen{position:absolute;inset:0;z-index:2000;background:radial-gradient(ellipse at center,#3D0F1A 0%,#1a0608 70%,#0a0204 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s,transform .9s}
+.envelope-screen.opening{transform:scale(1.06);opacity:0;pointer-events:none}
+.ornament-top{position:absolute;top:40px;font-size:60px;color:#B8935A;opacity:.15;letter-spacing:20px}
+.ornament-bottom{position:absolute;bottom:40px;font-size:60px;color:#B8935A;opacity:.15;letter-spacing:20px}
+.env-eyebrow{font:11px 'Tenor Sans',sans-serif;letter-spacing:.45em;color:#E5C896;margin-bottom:30px;text-transform:uppercase}
+.envelope{position:relative;width:260px;height:170px;perspective:900px}
+.env-body{position:absolute;inset:0;background:linear-gradient(180deg,#FAF4E8,#E8DAB8);border-radius:3px;box-shadow:0 16px 32px rgba(0,0,0,.4)}
+.env-body::before{content:'';position:absolute;inset:4px;border:.5px solid #B8935A;opacity:.5}
+.env-flap{position:absolute;top:0;left:0;right:0;height:92px;background:linear-gradient(180deg,#F0E0BA,#C9A961);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top center;transform:rotateX(0deg);transition:transform 1.3s cubic-bezier(.7,.1,.3,1);z-index:5}
+.envelope.open .env-flap{transform:rotateX(180deg);z-index:1}
+.seal{position:absolute;top:68px;left:50%;transform:translateX(-50%);width:60px;height:60px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#9A2A3A,#6B2030 60%,#3D0F1A 100%);box-shadow:0 4px 10px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;font:34px 'Georgia',serif;color:#E5C896;z-index:10;transition:opacity .3s,transform .4s}
+.envelope.open .seal{opacity:0;transform:translateX(-50%) scale(.5)}
+.env-names{margin-top:28px;text-align:center}
+.env-names .n{font:28px 'Georgia',serif;color:#E5C896}
+.env-names .d{font:12px 'Tenor Sans',sans-serif;letter-spacing:.25em;color:#B8935A;margin-top:8px}
+.env-btn{position:relative;z-index:9999;margin-top:36px;padding:14px 36px;background:transparent;border:1px solid #B8935A;color:#E5C896;font:11px 'Tenor Sans',sans-serif;letter-spacing:.4em;cursor:pointer;text-transform:uppercase;transition:background .3s}
+.env-btn:hover{background:rgba(184,147,90,.18)}
+.scroll{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;opacity:1}
+.scroll::-webkit-scrollbar{width:0}
+section{padding:40px 28px;text-align:center;position:relative}
+.hero{padding-top:100px;padding-bottom:60px}
+.hero .pre{font:10px 'Tenor Sans',sans-serif;letter-spacing:.4em;color:#E5C896;margin-bottom:20px}
+.hero h1{font:42px 'Georgia',serif;color:#E5C896;margin-bottom:8px}
+.hero .amp{font:28px 'Georgia',serif;color:#B8935A;margin:4px 0}
+.hero .date-line{font:13px 'Tenor Sans',sans-serif;letter-spacing:.3em;color:#B8935A;margin-top:16px}
+.kazakh-ornament{display:flex;align-items:center;justify-content:center;gap:12px;margin:20px 0}
+.kazakh-ornament .line{width:40px;height:.5px;background:#B8935A;opacity:.5}
+.kazakh-ornament .diamond{width:8px;height:8px;background:#B8935A;transform:rotate(45deg)}
+.countdown{background:rgba(61,15,26,.5);padding:30px 20px}
+.countdown .title{font:11px 'Tenor Sans',sans-serif;letter-spacing:.35em;color:#E5C896;margin-bottom:20px}
+.count-grid{display:flex;justify-content:center;gap:16px}
+.count-item{text-align:center;min-width:55px}
+.count-num{font:36px 'Georgia',serif;color:#E5C896}
+.count-label{font:9px 'Tenor Sans',sans-serif;letter-spacing:.25em;color:#B8935A;margin-top:4px}
+.section-title{font:13px 'Tenor Sans',sans-serif;letter-spacing:.3em;color:#E5C896;margin-bottom:24px}
+.timeline{display:flex;flex-direction:column;gap:16px;max-width:280px;margin:0 auto}
+.tl-row{display:flex;align-items:center;gap:12px;text-align:left}
+.tl-time{font:12px 'Georgia',serif;color:#B8935A;min-width:48px}
+.tl-dot{width:6px;height:6px;border-radius:50%;background:#E5C896;flex-shrink:0}
+.tl-title{font:13px 'Georgia',serif;color:#E5C896}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;max-width:300px;margin:0 auto}
+.gallery-item{aspect-ratio:1;background:linear-gradient(135deg,rgba(245,236,217,.08),rgba(184,147,90,.2));border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.wish-form{display:flex;flex-direction:column;gap:10px;max-width:280px;margin:0 auto}
+.wish-form input,.wish-form textarea{background:rgba(255,255,255,.06);border:1px solid rgba(184,147,90,.25);color:#E5C896;padding:10px 14px;font:13px 'Georgia',serif;border-radius:4px;outline:none}
+.wish-form textarea{height:70px;resize:none}
+.wish-form input::placeholder,.wish-form textarea::placeholder{color:rgba(184,147,90,.5)}
+.wish-btn{padding:10px 28px;background:transparent;border:1px solid #B8935A;color:#E5C896;font:10px 'Tenor Sans',sans-serif;letter-spacing:.35em;cursor:pointer;text-transform:uppercase;border-radius:4px}
+.wish-list{margin-top:16px;display:flex;flex-direction:column;gap:10px;max-width:280px;margin:16px auto 0}
+.wish-card{background:rgba(255,255,255,.04);border:1px solid rgba(184,147,90,.15);border-radius:6px;padding:14px;text-align:left}
+.wish-card .wn{font:12px 'Georgia',serif;color:#E5C896;font-weight:bold}
+.wish-card .wt{font:12px 'Georgia',serif;color:#C9A961;margin-top:4px}
+.footer{padding-bottom:60px}
+.footer .thanks{font:22px 'Georgia',serif;color:#E5C896;margin-bottom:8px}
+.footer .date{font:12px 'Tenor Sans',sans-serif;letter-spacing:.3em;color:#B8935A}
+.music-btn{position:absolute;bottom:20px;right:16px;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#B8935A,#8B6B3D);border:1px solid #E5C896;color:#fff;cursor:pointer;z-index:1500;display:none;align-items:center;justify-content:center;font-size:16px;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.music-btn.playing{animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:500px){.stage{width:100vw;height:100vh;border-radius:0}}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="envelope-screen" id="envelope-screen">
+    <div class="ornament-top">◆ ▵ ◆</div>
+    <div class="env-eyebrow">СІЗГЕ АРНАЛҒАН ШАҚЫРУ</div>
+    <div class="envelope" id="envelope">
+      <div class="env-body"></div>
+      <div class="env-flap"></div>
+      <div class="seal">А&amp;А</div>
+    </div>
+    <div class="env-names">
+      <div class="n">Алихан &amp; Аружан</div>
+      <div class="d">18 · МАМЫР · 2026</div>
+    </div>
+    <button class="env-btn" id="open-btn" onclick="(function(){
+      var s=document.getElementById('envelope-screen');
+      var e=document.getElementById('envelope');
+      e.classList.add('open');
+      this.disabled=true;
+      var a=document.getElementById('bg-audio');
+      var m=document.getElementById('music-btn');
+      try{a.src=a.getAttribute('data-src');a.play().then(function(){m.style.display='flex';m.classList.add('playing')}).catch(function(){m.style.display='flex'});}catch(ex){m.style.display='flex';}
+      setTimeout(function(){s.classList.add('opening');setTimeout(function(){s.style.display='none'},900)},1100);
+    }).call(this)">Конвертті ашу</button>
+    <div class="ornament-bottom">◆ ▵ ◆</div>
+  </div>
+
+  <div class="scroll" id="scroll">
+    <section class="hero">
+      <div class="kazakh-ornament"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+      <div class="pre">ҮЙЛЕНУ ТОЙЫНА ШАҚЫРУ</div>
+      <h1>Алихан</h1>
+      <div class="amp">&amp;</div>
+      <h1>Аружан</h1>
+      <div class="kazakh-ornament"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+      <div class="date-line">18 · МАМЫР · 2026 · 19:00</div>
+    </section>
+
+    <section class="countdown">
+      <div class="title">ТОЙҒА ДЕЙІН</div>
+      <div class="count-grid">
+        <div class="count-item"><div class="count-num" id="cd-days">00</div><div class="count-label">КҮН</div></div>
+        <div class="count-item"><div class="count-num" id="cd-hours">00</div><div class="count-label">САҒАТ</div></div>
+        <div class="count-item"><div class="count-num" id="cd-mins">00</div><div class="count-label">МИНУТ</div></div>
+        <div class="count-item"><div class="count-num" id="cd-secs">00</div><div class="count-label">СЕКУНД</div></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">ТОЙ БАҒДАРЛАМАСЫ</div>
+      <div class="timeline" id="schedule-list"></div>
+    </section>
+
+    <section>
+      <div class="section-title">ГАЛЕРЕЯ</div>
+      <div class="gallery-grid" id="gallery-grid"></div>
+    </section>
+
+    <section>
+      <div class="section-title">ТІЛЕКТЕР</div>
+      <div class="wish-form" id="wish-form">
+        <input id="wish-name" placeholder="Атыңыз">
+        <textarea id="wish-text" placeholder="Тілегіңіз..."></textarea>
+        <button class="wish-btn" id="wish-btn">ЖІБЕРУ</button>
+      </div>
+      <div class="wish-list" id="wish-list"></div>
+    </section>
+
+    <section class="footer">
+      <div class="thanks">Рахмет!</div>
+      <div class="date">18 · МАМЫР · 2026</div>
+      <div style="margin-top:16px;font:10px 'Tenor Sans',sans-serif;letter-spacing:.2em;color:#B8935A">Altyn Zhuldyz мейрамханасы</div>
+    </section>
+  </div>
+
+  <button class="music-btn" id="music-btn" aria-label="Музыка" style="display:none">♪</button>
+  <audio id="bg-audio" loop preload="none" data-src="https://dl.dropbox.com/scl/fi/a1qt2i2bh5s0vsgrxulus/Kazybek_Kurajjysh_-_Makhabbat_degen_75733807.mp3?rlkey=q2ib4m5canhif2i7aagcyks6b&dl=1"></audio>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  // Countdown
+  var target=new Date('2026-05-18T19:00:00+05:00').getTime();
+  var cd=document.getElementById('cd-days'),ch=document.getElementById('cd-hours'),cm=document.getElementById('cd-mins'),cs=document.getElementById('cd-secs');
+  function pad(n){return String(Math.max(0,n)).padStart(2,'0')}
+  function tick(){var d=Math.max(0,target-Date.now());cd.textContent=pad(Math.floor(d/86400000));ch.textContent=pad(Math.floor((d%86400000)/3600000));cm.textContent=pad(Math.floor((d%3600000)/60000));cs.textContent=pad(Math.floor((d%60000)/1000))}
+  tick();setInterval(tick,1000);
+
+  // Schedule
+  document.getElementById('schedule-list').innerHTML=[
+    {time:'19:00',title:'Тойдың басталуы'},{time:'20:00',title:'Беташар'},
+    {time:'21:00',title:'Құдаларды қарсы алу'},{time:'21:30',title:'Торт'},
+    {time:'00:00',title:'Тойдың аяғы'}
+  ].map(function(s){return '<div class="tl-row"><div class="tl-time">'+s.time+'</div><div class="tl-dot"></div><div class="tl-title">'+s.title+'</div></div>'}).join('');
+
+  // Gallery
+  var emojis=['💍','💐','🥂','🎂','💒','💝','✨','🕊️','🌟'];
+  document.getElementById('gallery-grid').innerHTML=emojis.map(function(e){return '<div class="gallery-item">'+e+'</div>'}).join('');
+
+  // Wishes
+  function loadWishes(){try{var s=localStorage.getItem('wishes-kazakh');if(s)return JSON.parse(s)}catch(e){}return[]}
+  function renderWishes(){var w=loadWishes();document.getElementById('wish-list').innerHTML=w.map(function(x){return '<div class="wish-card"><div class="wn">'+x.n+'</div><div class="wt">'+x.t+'</div></div>'}).join('')}
+  document.getElementById('wish-btn').addEventListener('click',function(){
+    var n=document.getElementById('wish-name').value.trim(),t=document.getElementById('wish-text').value.trim();
+    if(!n||!t)return alert('Атыңыз бен тілегіңізді жазыңыз');
+    var w=loadWishes();w.unshift({n:n,t:t});if(w.length>20)w.pop();
+    localStorage.setItem('wishes-kazakh',JSON.stringify(w));
+    document.getElementById('wish-name').value='';document.getElementById('wish-text').value='';
+    renderWishes()
+  });
+  renderWishes();
+
+  // Music
+  document.getElementById('music-btn').addEventListener('click',function(){
+    var a=document.getElementById('bg-audio'),b=this;
+    if(a.paused){if(!a.src)a.src=a.getAttribute('data-src');a.play().then(function(){b.classList.add('playing')}).catch(function(){})}
+    else{a.pause();b.classList.remove('playing')}
+  });
+});
+</script>
+</body>
+</html>
