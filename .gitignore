@@ -5,7 +5,7 @@
 # Тек сайт файлдарын рұқсат етеміз
 !.gitignore
 !Той Шақыру.html
-!Той Шақыру Plus.html
+!index.html
 !Той Шақыру Plus конвертсіз.html
 !shaqyru-mvp.html
 !wedding-data.js
