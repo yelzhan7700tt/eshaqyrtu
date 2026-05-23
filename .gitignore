@@ -1,16 +1,30 @@
-# Барлығын блоктаймыз
+# Шаблон папкалары (тек html)
+!/kazakh/
+/kazakh/*
+!/kazakh/index.html
+
+!/minimal/
+/minimal/*
+!/minimal/index.html
+
+!/romantic/
+/romantic/*
+!/romantic/index.html
+
+!/dark/
+/dark/*
+!/dark/index.html
+
+# Клиент жұмыстары
+!/client/
+/client/*
+!/client/**/index.html
+
+# Тамырдағы файлдар (ескіден қалған)
+!.gitignore
+!index.html
+!wedding-data.js
+
+# Қалғанның бәрін блоктаймыз
 /*
 /*/
-
-# Тек сайт файлдарын рұқсат етеміз
-!.gitignore
-!Той Шақыру.html
-!index.html
-!Той Шақыру Plus конвертсіз.html
-!shaqyru-mvp.html
-!wedding-data.js
-!template-kazakh.html
-!template-minimal.html
-!template-romantic.html
-!template-dark.html
-!Той Шақыру - iOS (1).html
