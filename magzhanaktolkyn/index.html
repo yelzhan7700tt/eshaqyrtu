@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Той Шақыру — Мағжан &amp; Ақтолқын</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Tenor+Sans&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+@font-face{font-family:'Shelley';src:url('fonts/AsylbekShelley.ttf') format('truetype');font-display:swap;}
+@font-face{font-family:'Klementina';src:url('fonts/KZKlementina.otf') format('opentype');font-display:swap;}
+@font-face{font-family:'Miama';src:url('fonts/MiamaNueva.otf') format('opentype');font-display:swap;}
+:root{
+  --ink:#141210; --ink2:#2A2622; --dark:#161513;
+  --cream:#FBF8F3; --line:rgba(20,18,16,.16);
+  --script:'Shelley','Miama',cursive;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --disp:'Playfair Display',serif;
+  --sans:'Tenor Sans',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{background:#0E0D0C;font-family:var(--serif);color:var(--ink);}
+a{color:var(--ink);}a:hover{color:#6E6154;}
+.page{max-width:430px;margin:0 auto;background:var(--cream);position:relative;overflow:hidden;container-type:inline-size;}
+
+.rv{opacity:0;transform:translateY(24px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1);}
+.rv.in{opacity:1;transform:none;}
+.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}.rv.d4{transition-delay:.48s}
+
+.scr{font-family:var(--script);line-height:1.05;}
+.lbl{font-family:var(--sans);text-transform:uppercase;letter-spacing:.4em;font-size:10px;}
+
+/* ══════ FULL-PAGE BACKGROUNDS ══════ */
+.bg{position:relative;width:100%;background-repeat:no-repeat;background-size:100% 100%;}
+.bg-cover{aspect-ratio:941/1672;background-image:url('bg-hands.png');}
+.bg-cal{aspect-ratio:941/1672;background-image:url('bg-torn1.png');background-size:118% auto;background-position:center center;}
+.bg-addr{aspect-ratio:941/1672;background-image:url('bg-torn3.png');}
+.bg-host{aspect-ratio:852/1560;background-size:100% auto;background-position:center bottom;background-image:url('bg-torn4.png');}
+.z{position:absolute;left:0;right:0;padding:0 30px;text-align:center;}
+
+/* ══════ COVER ══════ */
+.cv-nm{font-family:var(--disp);font-weight:500;font-size:46px;line-height:1.05;letter-spacing:.12em;color:#FCFAF6;text-transform:uppercase;text-shadow:0 3px 26px rgba(0,0,0,.55);
+  opacity:0;animation:nameIn 1.9s cubic-bezier(.2,.7,.2,1) .35s forwards;}
+.cv-nm.b{animation-delay:1.05s;}
+@keyframes nameIn{0%{opacity:0;letter-spacing:.42em;filter:blur(7px);transform:translateY(14px)}60%{opacity:1;filter:blur(0)}100%{opacity:1;letter-spacing:.12em;filter:blur(0);transform:none}}
+.cv-amp{font-family:var(--serif);font-style:italic;font-weight:500;font-size:74px;line-height:.92;color:#F2EDE3;text-shadow:0 3px 26px rgba(0,0,0,.5);
+  opacity:0;animation:ampIn 1.5s cubic-bezier(.2,.7,.2,1) .8s forwards;}
+@keyframes ampIn{0%{opacity:0;transform:scale(.4) rotate(-14deg)}70%{opacity:1;transform:scale(1.1) rotate(3deg)}100%{opacity:1;transform:none}}
+.cv-dt{font-family:var(--disp);font-weight:500;font-size:33px;letter-spacing:.16em;color:#FCFAF6;text-shadow:0 2px 20px rgba(0,0,0,.6);
+  opacity:0;animation:dtIn 1.6s cubic-bezier(.2,.7,.2,1) 1.7s forwards;}
+@keyframes dtIn{0%{opacity:0;transform:translateY(20px);letter-spacing:.32em}100%{opacity:1;transform:none;letter-spacing:.16em}}
+.cv-sc{position:absolute;left:0;right:0;bottom:4.5%;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(252,250,246,.82);}
+.cv-sc svg{animation:bob 2.1s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+
+/* ══════ INVITE TEXT ══════ */
+.sec{position:relative;background:var(--cream);padding:64px 30px 70px;text-align:center;}
+.h-scr{font-family:var(--script);line-height:1.05;font-size:62px;color:var(--ink);}
+.orn{display:flex;align-items:center;justify-content:center;gap:12px;margin:20px 0 26px;}
+.orn i{height:1px;flex:1;max-width:96px;background:linear-gradient(90deg,transparent,var(--line));}
+.orn i+i{background:linear-gradient(90deg,var(--line),transparent);}
+.orn svg{flex-shrink:0;color:rgba(20,18,16,.45);animation:ornF 4s ease-in-out infinite;}
+@keyframes ornF{0%,100%{transform:translateY(0);opacity:.75}50%{transform:translateY(-3px);opacity:1}}
+.guests{font-family:var(--disp);font-weight:500;font-size:18px;line-height:1.8;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);text-wrap:pretty;}
+.lead{font-family:var(--disp);font-weight:500;font-size:16.5px;line-height:1.75;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-top:30px;}
+.names{margin:16px 0 6px;}
+.names .n{font-family:var(--script);font-size:clamp(44px,15.5cqw,68px);line-height:1.05;color:var(--ink);}
+.names .a{font-family:var(--serif);font-style:italic;font-weight:500;font-size:27px;line-height:1.4;letter-spacing:.06em;color:rgba(20,18,16,.62);margin:4px 0;}
+.close-tx{font-family:var(--disp);font-weight:500;font-size:16.5px;line-height:1.75;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-top:22px;}
+
+/* ══════ CALENDAR (on black torn block) ══════ */
+.cal-h{font-family:var(--script);font-size:48px;line-height:1.05;color:#F6F2EA;}
+.cal-dt{font-family:var(--disp);font-weight:600;font-size:26px;letter-spacing:.1em;margin:6px 0 12px;color:#F6F2EA;}
+.cal-dt .nm{font-size:1.14em;}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px 7px;max-width:340px;margin:0 auto;}
+.cal .wd{font-family:var(--sans);font-size:12px;letter-spacing:.06em;color:rgba(246,242,234,.8);padding-bottom:4px;}
+.cal .dy{position:relative;font-family:var(--disp);font-weight:500;font-size:20px;line-height:32px;height:32px;color:#F6F2EA;text-shadow:0 1px 6px rgba(0,0,0,.75);}
+.cal .dy.off{color:transparent;}
+.cal .dy.hit{color:#FFF;font-weight:500;}
+.cal .dy.hit svg{position:absolute;left:50%;top:50%;width:44px;height:41px;color:rgba(246,242,234,.92);transform-origin:50% 52%;animation:heart 2.2s ease-in-out infinite;}
+@keyframes heart{0%,100%{transform:translate(-50%,-52%) scale(1);opacity:.85}50%{transform:translate(-50%,-52%) scale(1.22);opacity:1}}
+.times{margin-top:12px;display:flex;flex-direction:column;gap:5px;}
+.times div{font-family:var(--disp);font-weight:600;font-size:22px;letter-spacing:.08em;text-transform:uppercase;color:#F6F2EA;text-shadow:0 1px 6px rgba(0,0,0,.75);}
+
+/* ══════ ADDRESS (cream zone of фон 3) ══════ */
+.addr-h{font-family:var(--script);font-size:clamp(32px,10.5cqw,46px);line-height:1.1;color:var(--ink);white-space:nowrap;}
+.addr-city{font-family:var(--disp);font-weight:500;font-size:18px;letter-spacing:.13em;text-transform:uppercase;line-height:1.5;color:var(--ink);margin-top:22px;}
+.addr-vn{font-family:var(--serif);font-style:italic;font-weight:500;font-size:34px;line-height:1.2;letter-spacing:.015em;color:var(--ink);margin:12px 0 10px;}
+.addr-vt{font-family:var(--disp);font-weight:500;font-size:17px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;margin-top:30px;
+  background:var(--dark);color:#F6F2EA;font-family:var(--disp);font-weight:600;font-size:15px;letter-spacing:.19em;text-transform:uppercase;
+  padding:16px 34px;border-radius:34px;text-decoration:none;cursor:pointer;
+  transition:transform .2s,box-shadow .2s;box-shadow:0 8px 24px rgba(20,18,16,.2);}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(20,18,16,.26);color:#F6F2EA;}
+
+/* ══════ HOST + COUNTDOWN (фон 1) ══════ */
+.host-h{font-family:var(--script);font-size:60px;line-height:1.05;color:var(--ink);}
+.host-nm{font-family:var(--serif);font-weight:600;font-size:27px;letter-spacing:.14em;text-transform:uppercase;line-height:1.45;color:var(--ink);margin-top:10px;}
+.cd-h{font-family:var(--script);font-size:56px;line-height:1.05;color:#F6F2EA;text-shadow:0 2px 16px rgba(0,0,0,.6);}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:336px;margin:18px auto 0;}
+.cd .u{display:flex;flex-direction:column;align-items:center;gap:9px;}
+.cd .ring{width:100%;aspect-ratio:1;max-width:70px;border:1.5px solid rgba(246,242,234,.92);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:ringPulse 3.4s ease-in-out infinite;}
+.cd .u:nth-child(2) .ring{animation-delay:.35s}.cd .u:nth-child(3) .ring{animation-delay:.7s}.cd .u:nth-child(4) .ring{animation-delay:1.05s}
+@keyframes ringPulse{0%,100%{box-shadow:0 0 0 0 rgba(246,242,234,0)}50%{box-shadow:0 0 0 5px rgba(246,242,234,.13)}}
+.cd .num{font-family:var(--disp);font-weight:600;font-size:27px;color:#FCFAF6;text-shadow:0 2px 10px rgba(0,0,0,.6);}
+.cd .cl{font-family:var(--sans);font-size:10px;letter-spacing:.13em;color:#F6F2EA;text-transform:uppercase;text-shadow:0 2px 8px rgba(0,0,0,.7);}
+
+/* ══════ FOOTER ══════ */
+.foot{position:relative;background:var(--dark);color:#F6F2EA;padding:64px 26px 56px;text-align:center;}
+.foot-t{font-family:var(--disp);font-size:21px;letter-spacing:.15em;text-transform:uppercase;}
+.socials{display:flex;justify-content:center;gap:16px;}
+.socials a{width:54px;height:54px;border:1.5px solid rgba(20,18,16,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink);transition:background .25s,color .25s;}
+.socials a:hover{background:var(--dark);color:#F6F2EA;}
+.foot-sub{font-family:var(--sans);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:rgba(20,18,16,.55);margin-top:20px;}
+
+/* ══════ MUSIC BAND ══════ */
+.mband{background:var(--cream);padding:46px 26px 40px;display:flex;justify-content:center;}
+.mbt{display:inline-flex;align-items:center;gap:10px;background:var(--dark);color:#F6F2EA;
+  border:none;border-radius:34px;cursor:pointer;
+  padding:16px 32px;font-family:var(--disp);font-weight:600;font-size:14px;letter-spacing:.18em;text-transform:uppercase;
+  box-shadow:0 8px 24px rgba(20,18,16,.2);transition:transform .2s,box-shadow .2s;}
+.mbt:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(20,18,16,.26);}
+.mbt .eq{display:flex;align-items:flex-end;gap:2px;height:13px;}
+.mbt .eq i{width:2px;height:4px;background:#F6F2EA;border-radius:1px;}
+.mbt.playing .eq i{animation:eq .85s ease-in-out infinite;}
+.mbt.playing .eq i:nth-child(2){animation-delay:.2s}
+.mbt.playing .eq i:nth-child(3){animation-delay:.4s}
+@keyframes eq{0%,100%{height:4px}50%{height:12px}}
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#161513">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#161513"/><g fill="none" stroke="#E8D5A0" stroke-width="2"><path d="M50 74S26 60 26 44c0-9 6.5-14 12-14 4.6 0 8.7 2.7 12 7 3.3-4.3 7.4-7 12-7 5.5 0 12 5 12 14 0 16-24 30-24 30z"/></g><text x="50" y="92" font-family="Georgia,serif" font-size="10" fill="#E8D5A0" text-anchor="middle">М &amp; А</text></svg>
+</template>
+<div class="page" id="page">
+
+  <!-- ═══ COVER — фон 2 ═══ -->
+  <section class="bg bg-cover" data-screen-label="Cover">
+    <div class="z" style="top:9%">
+      <div class="cv-nm" id="cvGroom">МАҒЖАН</div>
+      <div class="cv-amp">&amp;</div>
+      <div class="cv-nm b" id="cvBride">АҚТОЛҚЫН</div>
+    </div>
+    <div class="z" style="top:61%">
+      <div class="cv-dt" id="cvDate">09.10.2026</div>
+    </div>
+    <div class="cv-sc">
+      <div class="lbl">Төмен жылжытыңыз</div>
+      <svg width="17" height="26" viewBox="0 0 17 26" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8.5 1v20"/><path d="M2.5 15.5l6 6 6-6"/></svg>
+    </div>
+  </section>
+
+  <!-- ═══ MUSIC ═══ -->
+  <div class="mband">
+    <button class="mbt" id="mbt"><span class="eq"><i></i><i></i><i></i></span><span id="mbtTx">Әуенді қосу</span></button>
+  </div>
+
+  <!-- ═══ INVITE TEXT ═══ -->
+  <section class="sec" data-screen-label="Шақыру" style="padding-top:10px">
+    <div class="rv h-scr">Құрметті</div>
+    <div class="rv d1 orn"><i></i>
+      <svg width="42" height="14" viewBox="0 0 42 14" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 2c-2.6 0-4 1.7-4 3.4S18.4 9 21 9s4-1.7 4-3.6S23.6 2 21 2z"/><path d="M17 5.6h-5M25 5.6h5"/><circle cx="10" cy="5.6" r="1.1" fill="currentColor" stroke="none"/><circle cx="32" cy="5.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+    <i></i></div>
+    <p class="rv d2 guests" id="guests"></p>
+    <p class="rv d3 lead" id="lead"></p>
+    <div class="names">
+      <div class="rv n" id="nGroom">Мағжан</div>
+      <div class="rv d1 a">мен</div>
+      <div class="rv d2 n" id="nBride">Ақтолқынның</div>
+    </div>
+    <p class="rv d3 close-tx" id="closeTx"></p>
+  </section>
+
+  <!-- ═══ CALENDAR — фон 4 ═══ -->
+  <section class="bg bg-cal" data-screen-label="Той күні">
+    <div class="z" style="top:18%">
+      <div class="rv cal-h">Той салтанаты:</div>
+      <div class="rv d1 cal-dt" id="calDate"></div>
+      <div class="rv d2 cal" id="cal"></div>
+      <div class="rv d3 times" id="times"></div>
+    </div>
+  </section>
+
+  <!-- ═══ ADDRESS — фон 3 ═══ -->
+  <section class="bg bg-addr" data-screen-label="Мекенжай">
+    <div class="z" style="top:9%;padding:0 30px">
+      <div class="rv addr-h">Мекен-жайымыз:</div>
+      <div class="rv d1 addr-city" id="aCity"></div>
+      <div class="rv d1 addr-vn" id="aVenue"></div>
+      <div class="rv d1 addr-vt" id="aType"></div>
+      <a class="rv d2 btn" id="mapBtn" href="#" target="_blank" rel="noopener">Картаны ашу</a>
+    </div>
+  </section>
+
+  <!-- ═══ HOST + COUNTDOWN — фон 1 ═══ -->
+  <section class="bg bg-host" data-screen-label="Той иесі">
+    <div class="z" style="top:8%">
+      <div class="rv host-h">Той иесі:</div>
+      <div class="rv d1 host-nm" id="hosts"></div>
+    </div>
+    <div class="z" style="top:35%">
+      <div class="rv cd-h">Тойға дейін:</div>
+      <div class="rv d1 cd">
+        <div class="u"><div class="ring"><span class="num" id="cdD">0</span></div><span class="cl">Күн</span></div>
+        <div class="u"><div class="ring"><span class="num" id="cdH">0</span></div><span class="cl">Сағат</span></div>
+        <div class="u"><div class="ring"><span class="num" id="cdM">0</span></div><span class="cl">Минут</span></div>
+        <div class="u"><div class="ring"><span class="num" id="cdS">0</span></div><span class="cl">Секунд</span></div>
+      </div>
+    </div>
+    <div class="z" style="top:80%">
+      <div class="rv socials">
+        <a id="waLink" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.1-.3 0-.4.1-.6.1-.1.3-.4.5-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 1.5 2.3 3.6 3.2 1.9.8 2.4.8 2.9.8.5 0 1.6-.4 1.9-1s.3-1.1.2-1.2c0-.1-.2-.2-.4-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.2-1.3c1.4.8 3 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3c-.8-1.3-1.3-2.9-1.3-4.5C3.5 7.3 7.3 3.5 12 3.5S20.5 7.3 20.5 12 16.7 20.2 12 20.2z"/></svg>
+        </a>
+        <a id="igLink" href="#" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+      <div class="rv d1 foot-sub" id="footSub"></div>
+    </div>
+  </section>
+
+  <audio id="aud" loop preload="auto" muted></audio>
+</div>
+
+<script>
+const W = {
+  groom:"Мағжан", bride:"Ақтолқын", brideGen:"Ақтолқынның",
+  guests:"Ағайын-туыс, бауырлар,<br>құда-жекжат, нағашы-жиен,<br>бөлелер, дос-жаран,<br>әріптестер, көршілер!",
+  lead:"Сіздерді ұлымыз бен келініміз",
+  closeText:"үйлену тойына арналған<br>салтанатты ақ дастарханымыздың<br>қадірлі қонағы болуға шақырамыз!",
+  hosts:"Нұржан-Айжан",
+  day:9, month:10, year:2026, monthUpper:"ҚАЗАН",
+  iso:"2026-10-09T19:00:00+05:00",
+  program:[["Той салтанаты","19:00"]],
+  city:"Шымкент қаласы,", venueName:"Altyn Zhuldyz", venueType:"салтанат сарайы",
+  mapUrl:"https://go.2gis.com/gy5F6",
+  musicUrl:"music-kogildir.mp3",
+  whatsapp:"https://wa.me/77000000000",
+  instagram:"https://instagram.com/"
+};
+
+(function(){
+  const g=id=>document.getElementById(id);
+  const p2=n=>String(n).padStart(2,'0');
+
+  g('cvGroom').textContent=W.groom.toUpperCase();
+  g('cvBride').textContent=W.bride.toUpperCase();
+  g('cvDate').textContent=p2(W.day)+'.'+p2(W.month)+'.'+W.year;
+  g('guests').innerHTML=W.guests;
+  g('lead').textContent=W.lead;
+  g('nGroom').textContent=W.groom;
+  g('nBride').textContent=W.brideGen;
+  g('closeTx').innerHTML=W.closeText;
+  g('hosts').textContent=W.hosts;
+  g('aCity').textContent=W.city.toUpperCase();
+  g('aVenue').textContent=W.venueName;
+  g('aType').textContent=W.venueType.toUpperCase();
+  g('mapBtn').href=W.mapUrl;
+  g('waLink').href=W.whatsapp;
+  g('igLink').href=W.instagram;
+  g('footSub').innerHTML=W.groom+' &amp; '+W.bride+' · '+p2(W.day)+'.'+p2(W.month)+'.'+W.year;
+  g('calDate').innerHTML='<span class="nm">'+W.day+'</span> '+W.monthUpper+' <span class="nm">'+W.year+'</span> ЖЫЛ';
+  g('times').innerHTML=W.program.map(p=>'<div>'+p[0].toUpperCase()+' — '+p[1]+'</div>').join('');
+
+  // ── calendar ──
+  (function(){
+    const wd=['ДҮ','СЕ','СӘ','БЕ','ЖҰ','СЕ','ЖҚ'];
+    const first=new Date(W.year,W.month-1,1);
+    const total=new Date(W.year,W.month,0).getDate();
+    let lead=(first.getDay()+6)%7;
+    let h=wd.map(d=>'<div class="wd">'+d+'</div>').join('');
+    for(let i=0;i<lead;i++)h+='<div class="dy off">0</div>';
+    const heart='<svg viewBox="0 0 40 37" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M20 33S4 24 4 14C4 8.5 8 5 12.5 5c3 0 5.6 1.7 7.5 4.4C21.9 6.7 24.5 5 27.5 5 32 5 36 8.5 36 14c0 10-16 19-16 19z"/></svg>';
+    for(let d=1;d<=total;d++){
+      const hit=d===W.day;
+      h+='<div class="dy'+(hit?' hit':'')+'">'+(hit?heart:'')+d+'</div>';
+    }
+    g('cal').innerHTML=h;
+  })();
+
+  // ── countdown ──
+  const target=new Date(W.iso).getTime();
+  function tick(){
+    let s=Math.max(0,Math.floor((target-Date.now())/1000));
+    g('cdD').textContent=Math.floor(s/86400);
+    g('cdH').textContent=Math.floor(s%86400/3600);
+    g('cdM').textContent=Math.floor(s%3600/60);
+    g('cdS').textContent=s%60;
+  }
+  tick();setInterval(tick,1000);
+
+  // ── reveal ──
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.14});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+  // ── music: muted autoplay → sound on first touch ──
+  const aud=g('aud'),mbt=g('mbt'),mtx=g('mbtTx');
+  aud.src=W.musicUrl;
+  function setUI(on){mbt.classList.toggle('playing',on);mtx.textContent=on?'Әуенді өшіру':'Әуенді қосу';}
+  aud.muted=true;
+  aud.play().then(()=>setUI(true)).catch(()=>{});
+  function onFirst(){
+    aud.muted=false;
+    if(aud.paused)aud.play().then(()=>setUI(true)).catch(()=>{});
+    else setUI(true);
+    window.removeEventListener('pointerdown',onFirst,true);
+    window.removeEventListener('touchstart',onFirst,true);
+    window.removeEventListener('keydown',onFirst,true);
+  }
+  window.addEventListener('pointerdown',onFirst,true);
+  window.addEventListener('touchstart',onFirst,true);
+  window.addEventListener('keydown',onFirst,true);
+  mbt.addEventListener('click',e=>{
+    e.stopPropagation();
+    aud.muted=false;
+    if(aud.paused)aud.play().then(()=>setUI(true)).catch(()=>{});
+    else{aud.pause();setUI(false);}
+  });
+})();
+</script>
+</body>
+</html>
